@@ -1,1 +1,10 @@
+mat-form-field
+{
+  width: 100%;
+  padding: 10px 10px 0;
+}
+
+
 table { width: 100% }
+.mat-column-number { width: 150px }
+.mat-column-actions { width: 20px }
