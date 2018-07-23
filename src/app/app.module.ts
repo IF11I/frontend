@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material
@@ -9,6 +11,9 @@ import { MaterialModule } from './material.module';
 // Components
 import { AppComponent } from './components/AppComponent/app.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
+
+// Services
+import { RoomService } from './services/room.service';
 
 @NgModule({
   declarations: [
@@ -20,8 +25,11 @@ import { RoomListComponent } from './components/room-list/room-list.component';
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    RoomService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
