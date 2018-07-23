@@ -1,16 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
-import { AppRoutingModule } from './app-routing.module';
+// Components
 import { AppComponent } from './components/AppComponent/app.component';
+import { RoomListComponent } from './components/room-list/room-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    RoomListComponent,
   ],
   imports: [
     BrowserModule,
