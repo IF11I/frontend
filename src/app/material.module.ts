@@ -6,9 +6,11 @@ import {
 
 @NgModule({
   imports: [
+    MatSidenavModule,
     MatButtonModule,
   ],
   exports: [
+    MatSidenavModule,
     MatButtonModule,
   ],
 })
