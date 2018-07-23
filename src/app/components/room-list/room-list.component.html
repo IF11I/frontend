@@ -1,3 +1,16 @@
-<p>
-  room-list works!
-</p>
+<table mat-table [dataSource]="rooms">
+  <!-- room number column -->
+  <ng-container matColumnDef="number">
+    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <td mat-cell *matCellDef="let room">{{ room.number }}</td>
+  </ng-container>
+
+  <!-- room name column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let room">{{ room.name }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let rowData; columns : columnsToDisplay"></tr>
+</table>
