@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
@@ -19,6 +20,7 @@ export class RoomDetailComponent implements OnInit {
   private room = new Room();
 
   constructor(
+    private title: Title,
     private route: ActivatedRoute,
     private router: Router,
     private roomService: RoomService,
@@ -27,10 +29,13 @@ export class RoomDetailComponent implements OnInit {
 
 
   ngOnInit() {
+    this.title.setTitle('IT-Verwaltung · Rooms · Detail');
+
     this.route.paramMap.pipe(
       switchMap((params: Params) => {
         const idParam = params.get('id');
         if (idParam === 'new') {
+          this.title.setTitle('IT-Verwaltung · Rooms · New');
           return of(new Room());
         } else {
           return this.roomService.getRoomById(+idParam);

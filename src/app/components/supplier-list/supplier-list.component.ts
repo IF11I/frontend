@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import { SupplierService } from 'src/app/services/supplier.service';
@@ -15,9 +16,10 @@ export class SupplierListComponent implements OnInit {
   private dataSource = new MatTableDataSource();
   private columnsToDisplay = ['name', 'street', 'postalCode', 'city', 'actions'];
 
-  constructor(private supplierService: SupplierService) { }
+  constructor(private title: Title, private supplierService: SupplierService) { }
 
   ngOnInit() {
+    this.title.setTitle('IT-Verwaltung · Suppliers');
     this.dataSource.sort = this.sort;
     this.supplierService.getSuppliers().subscribe(suppliers => this.dataSource.data = suppliers);
   }

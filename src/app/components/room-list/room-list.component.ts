@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import { Room } from 'src/app/model/room';
@@ -16,9 +17,10 @@ export class RoomListComponent implements OnInit {
   private dataSource = new MatTableDataSource();
   private columnsToDisplay = ['number', 'name', 'actions'];
 
-  constructor(private roomService: RoomService) { }
+  constructor(private title: Title, private roomService: RoomService) { }
 
   ngOnInit() {
+    this.title.setTitle('IT-Verwaltung · Rooms');
     this.dataSource.sort = this.sort;
     this.roomService.getRooms().subscribe(rooms => this.dataSource.data = rooms);
   }

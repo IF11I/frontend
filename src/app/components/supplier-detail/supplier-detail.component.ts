@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
@@ -19,6 +20,7 @@ export class SupplierDetailComponent implements OnInit {
   private supplier = new Supplier();
 
   constructor(
+    private title: Title,
     private route: ActivatedRoute,
     private router: Router,
     private supplierService: SupplierService,
@@ -27,10 +29,13 @@ export class SupplierDetailComponent implements OnInit {
 
 
   ngOnInit() {
+    this.title.setTitle('IT-Verwaltung · Suppliers · Detail');
+
     this.route.paramMap.pipe(
       switchMap((params: Params) => {
         const idParam = params.get('id');
         if (idParam === 'new') {
+          this.title.setTitle('IT-Verwaltung · Suppliers · New');
           return of(new Supplier());
         } else {
           return this.supplierService.getSupplierById(+idParam);
