@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Room } from 'src/app/model/room';
 import { RoomService } from 'src/app/services/room.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-room-detail',
@@ -19,7 +21,8 @@ export class RoomDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private dialog: MatDialog,
   ) { }
 
 
@@ -37,13 +40,25 @@ export class RoomDetailComponent implements OnInit {
   }
 
 
-  saveRoom() {
+  private saveRoom() {
     if (this.room.isInDatabase) {
       this.roomService.updateRoom(this.room);
     } else {
       this.roomService.createRoom(this.room);
     }
 
+    this.router.navigateByUrl('/rooms');
+  }
+
+
+  private confirmRoomDeletion() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteRoom(); }});
+  }
+
+
+  private deleteRoom() {
+    this.roomService.deleteRoom(this.room);
     this.router.navigateByUrl('/rooms');
   }
 

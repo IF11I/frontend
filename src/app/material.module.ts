@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
+  MatDialogModule,
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
@@ -13,6 +14,7 @@ import {
 
 @NgModule({
   imports: [
+    MatDialogModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -24,6 +26,7 @@ import {
     MatIconModule,
   ],
   exports: [
+    MatDialogModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,

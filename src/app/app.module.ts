@@ -11,6 +11,7 @@ import { MaterialModule } from './material.module';
 
 // Components
 import { AppComponent } from './components/AppComponent/app.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomDetailComponent } from './components/room-detail/room-detail.component';
 
@@ -20,6 +21,7 @@ import { RoomService } from './services/room.service';
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmationDialogComponent,
     RoomListComponent,
     RoomDetailComponent,
   ],
@@ -34,6 +36,7 @@ import { RoomService } from './services/room.service';
   providers: [
     RoomService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent],
 })
 export class AppModule { }
