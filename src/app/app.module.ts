@@ -14,6 +14,8 @@ import { AppComponent } from './components/AppComponent/app.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomDetailComponent } from './components/room-detail/room-detail.component';
+import { SupplierListComponent } from './components/supplier-list/supplier-list.component';
+import { SupplierDetailComponent } from './components/supplier-detail/supplier-detail.component';
 
 // Services
 import { RoomService } from './services/room.service';
@@ -24,6 +26,8 @@ import { RoomService } from './services/room.service';
     ConfirmationDialogComponent,
     RoomListComponent,
     RoomDetailComponent,
+    SupplierListComponent,
+    SupplierDetailComponent,
   ],
   imports: [
     BrowserModule,
