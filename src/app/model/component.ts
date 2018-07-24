@@ -1,13 +1,13 @@
+import { DatabaseEntity } from './database-entity';
 import { Attribute } from './attribute';
 
-export interface Component {
-  id?: number;
-  roomId: number;
-  supplierId: number;
-  datePurchased: Date;
-  dateWarrentyEnd: Date;
-  notes: string;
-  manufacturer: string;
-  componentTypeId: number;
-  attributes: Attribute[];
+export class Component extends DatabaseEntity {
+  public roomId: number;
+  public supplierId: number;
+  public datePurchased: Date;
+  public dateWarrentyEnd: Date;
+  public notes: string;
+  public manufacturer: string;
+  public componentTypeId: number;
+  public attributes: Attribute[];
 }

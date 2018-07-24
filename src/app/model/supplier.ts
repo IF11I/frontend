@@ -1,11 +1,12 @@
-export interface Supplier {
-  id?: number;
-  name: string;
-  street: string;
-  postalCode: string;
-  city: string;
-  telephone: string;
-  mobile: string;
-  fax: string;
-  email: string;
+import { DatabaseEntity } from './database-entity';
+
+export class Supplier extends DatabaseEntity {
+  public name: string;
+  public street: string;
+  public postalCode: string;
+  public city: string;
+  public telephone: string;
+  public mobile: string;
+  public fax: string;
+  public email: string;
 }

@@ -1,5 +1,6 @@
-export interface Attribute {
-  id?: number;
-  label: string;
-  value: string;
+import { DatabaseEntity } from './database-entity';
+
+export class Attribute extends DatabaseEntity {
+  public label: string;
+  public value: string;
 }

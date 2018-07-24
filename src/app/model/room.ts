@@ -1,6 +1,7 @@
-export interface Room {
-  id?: number;
-  name: string;
-  number: string;
-  notes: string;
+import { DatabaseEntity } from './database-entity';
+
+export class Room extends DatabaseEntity {
+  public name: string;
+  public number: string;
+  public notes: string;
 }
