@@ -8,3 +8,10 @@ mat-form-field
 table { width: 100% }
 .mat-column-number { width: 150px }
 .mat-column-actions { width: 20px }
+
+.add-button
+{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

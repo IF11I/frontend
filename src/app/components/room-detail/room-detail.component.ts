@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Room } from 'src/app/model/room';
@@ -14,7 +14,7 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class RoomDetailComponent implements OnInit {
 
-  private room: Room;
+  private room = new Room();
 
   constructor(
     private route: ActivatedRoute,
@@ -25,13 +25,20 @@ export class RoomDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      switchMap(params => this.roomService.getRoomById(+params.get('id')))
+      switchMap((params: Params) => {
+        const idParam = params.get('id');
+        if (idParam === 'new') {
+          return of(new Room());
+        } else {
+          return this.roomService.getRoomById(+idParam);
+        }
+      })
     ).subscribe(room => this.room = room);
   }
 
 
   saveRoom() {
-    if (this.room.id) {
+    if (this.room.isInDatabase) {
       this.roomService.updateRoom(this.room);
     } else {
       this.roomService.createRoom(this.room);

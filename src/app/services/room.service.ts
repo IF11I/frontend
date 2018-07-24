@@ -28,7 +28,7 @@ export class RoomService {
   }
 
   createRoom(room: Room): Observable<ResponseMessage> {
-    room.id = this.fakeRooms.length;
+    room.id = this.fakeRooms.length + 1;
     this.fakeRooms.push(room);
     return of({ isSuccessful: true, messageText: 'Room created' });
   }
