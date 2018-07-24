@@ -1,0 +1,20 @@
+.fields
+{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.fields mat-form-field
+{
+  margin: 5px 0;
+}
+
+
+.save-button
+{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -11,6 +12,7 @@ import { MaterialModule } from './material.module';
 // Components
 import { AppComponent } from './components/AppComponent/app.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
+import { RoomDetailComponent } from './components/room-detail/room-detail.component';
 
 // Services
 import { RoomService } from './services/room.service';
@@ -19,10 +21,12 @@ import { RoomService } from './services/room.service';
   declarations: [
     AppComponent,
     RoomListComponent,
+    RoomDetailComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MaterialModule,
     AppRoutingModule,
     HttpClientModule,

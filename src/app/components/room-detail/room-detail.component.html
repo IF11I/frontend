@@ -1,0 +1,15 @@
+<div class="fields">
+  <mat-form-field>
+    <input matInput placeholder="Room Name" [(ngModel)]="room.name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Room No." [(ngModel)]="room.number" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Notes" [(ngModel)]="room.notes"></textarea>
+  </mat-form-field>
+</div>
+
+<button mat-fab class="save-button" (click)="saveRoom()"><mat-icon>save</mat-icon></button>
