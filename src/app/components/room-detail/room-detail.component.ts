@@ -41,7 +41,7 @@ export class RoomDetailComponent implements OnInit {
 
 
   private saveRoom() {
-    if (this.room.isInDatabase) {
+    if (this.room.id) {
       this.roomService.updateRoom(this.room);
     } else {
       this.roomService.createRoom(this.room);
