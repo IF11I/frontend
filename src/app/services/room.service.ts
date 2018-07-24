@@ -34,18 +34,9 @@ export class RoomService {
     return this.httpClient.get<Room>("/api/rooms/" + id);
   }
 
+  // creates a room on server 
   createRoom(room: Room): Observable<ResponseMessage> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      })
-    };
 
-    let body = new URLSearchParams();
-
-    body.set("name", "testname");
-    body.set("number", " 22");
-    // var x = this.httpClient.post<Room>("/api/rooms/", body);
     var x = this.httpClient.post<Room>("/api/rooms", room).subscribe(res => {
       console.log(res);
     },
