@@ -1,0 +1,24 @@
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+  </mat-form-field>
+  
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let componenttype">{{ componenttype.name }}</td>
+    </ng-container>
+  
+    <!-- actions column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let componenttype">
+        <a mat-icon-button [routerLink]="['/componenttype', componenttype.id]"><mat-icon>edit</mat-icon></a>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let rowData; columns : columnsToDisplay"></tr>
+  </table>
+  
+  <button mat-fab class="add-button" routerLink="/componenttype/new"><mat-icon>add</mat-icon></button>
