@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
 import { Room } from '../model/room';
 import { ResponseMessage } from '../model/response-message';
+import { catchError } from '../../../node_modules/rxjs/operators';
+import { log, debug } from 'util';
+import { logging } from '../../../node_modules/protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
+
+  url: "/api/rooms";
 
   private fakeRooms: Room[] = [
     { id: 1, name: 'Room 1', number: 'r001', notes: '' },
@@ -19,17 +24,37 @@ export class RoomService {
 
   constructor(private httpClient: HttpClient) { }
 
+  // returns all the rooms from the server
   getRooms(): Observable<Room[]> {
-    return of(this.fakeRooms);
+    return this.httpClient.get<Room[]>("/api/rooms");
   }
 
+  // returns the room with a given Id from the server
   getRoomById(id: number): Observable<Room> {
-    return of(this.fakeRooms.find(room => room.id === id));
+    return this.httpClient.get<Room>("/api/rooms/" + id);
   }
 
   createRoom(room: Room): Observable<ResponseMessage> {
-    room.id = this.fakeRooms.length + 1;
-    this.fakeRooms.push(room);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      })
+    };
+
+    let body = new URLSearchParams();
+
+    body.set("name", "testname");
+    body.set("number", " 22");
+    // var x = this.httpClient.post<Room>("/api/rooms/", body);
+    var x = this.httpClient.post<Room>("/api/rooms", room).subscribe(res => {
+      console.log(res);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(err.error);
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.status);
+    });
     return of({ isSuccessful: true, messageText: 'Room created' });
   }
 

@@ -1,3 +1,3 @@
 export class DatabaseEntity {
-  constructor(public readonly id?: number) { }
+  constructor(public id?: number) { }
 }
