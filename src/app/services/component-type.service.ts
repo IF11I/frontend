@@ -28,7 +28,7 @@ export class ComponentTypeService {
    *
    * @author Matrin Wünsch
    */
-  getComponentType(): Observable<ComponentType[]> {
+  getComponentTypes(): Observable<ComponentType[]> {
     return this.httpClient.get<ComponentType[]>(this.url);
   }
 

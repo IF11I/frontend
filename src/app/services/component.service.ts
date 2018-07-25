@@ -28,7 +28,7 @@ export class ComponentService {
    *
    * @author Matrin Wünsch
    */
-  getComponent(): Observable<Component[]> {
+  getComponents(): Observable<Component[]> {
     return this.httpClient.get<Component[]>(this.url);
   }
 
