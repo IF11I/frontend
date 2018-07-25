@@ -4,7 +4,7 @@
 
 <table mat-table [dataSource]="dataSource" matSort>
   <!-- attribute name column -->
-  <ng-container matColumnDef="name">
+  <ng-container matColumnDef="label">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Label</th>
     <td mat-cell *matCellDef="let attribute">{{ attribute.label }}</td>
   </ng-container>

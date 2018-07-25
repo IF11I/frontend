@@ -24,7 +24,7 @@ export class AttributeListComponent implements OnInit {
   private dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'actions'];
+  private columnsToDisplay = ['label', 'actions'];
 
 
   constructor(private title: Title, private attributeService: AttributeService) { }
