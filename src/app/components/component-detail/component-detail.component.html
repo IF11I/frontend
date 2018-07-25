@@ -1,0 +1,66 @@
+<div class="fields">
+  <h3 class="mat-title">General Information</h3>
+
+  <!-- Room Selection -->
+  <mat-form-field>
+    <mat-select placeholder="Room" [(ngModel)]="component.roomId">
+      <mat-option *ngFor="let room of rooms" [value]="room.id">
+        {{ room.number }} - {{ room.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Manufacturer -->
+  <mat-form-field>
+    <input matInput placeholder="Manufacturer" [(ngModel)]="component.manufacturer" />
+  </mat-form-field>
+
+  <!-- Notes -->
+  <mat-form-field>
+    <textarea matInput placeholder="Notes" [(ngModel)]="component.notes"></textarea>
+  </mat-form-field>
+</div>
+
+<div class="fields">
+  <h3 class="mat-title">Supplier Information</h3>
+  
+  <!-- Supplier Selection -->
+  <mat-form-field>
+    <mat-select placeholder="Supplier" [(ngModel)]="component.supplierId">
+      <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+        {{ supplier.name }}, {{ supplier.city }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Date Purchased -->
+  <mat-form-field>
+    <input matInput [(ngModel)]="component.datePurchased" [matDatepicker]="pickerPurchased" placeholder="Date Purchased" />
+    <mat-datepicker-toggle matSuffix [for]="pickerPurchased"></mat-datepicker-toggle>
+    <mat-datepicker #pickerPurchased></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Date Warranty End -->
+  <mat-form-field>
+    <input matInput [(ngModel)]="component.dateWarrantyEnd" [matDatepicker]="pickerWarrantyEnd" placeholder="Warranty End Date" />
+    <mat-datepicker-toggle matSuffix [for]="pickerWarrantyEnd"></mat-datepicker-toggle>
+    <mat-datepicker #pickerWarrantyEnd></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div class="fields">
+  <h3 class="mat-title">Attributes</h3>
+
+  <mat-form-field *ngFor="let attribute of component.attributes">
+    <input matInput [(ngModel)]="attribute.value" [placeholder]="attribute.label" />
+  </mat-form-field>
+</div>
+
+<div class="actions" *ngIf="component.id">
+  <button mat-button color="warn" class="delete-button" (click)="confirmComponentTypeDeletion()">
+    <mat-icon>delete</mat-icon>
+    Delete Component
+  </button>
+</div>
+
+<button mat-fab class="save-button" (click)="saveComponentType()"><mat-icon>save</mat-icon></button>
