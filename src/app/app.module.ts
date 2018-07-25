@@ -19,6 +19,7 @@ import { SupplierDetailComponent } from './components/supplier-detail/supplier-d
 import { ComponentTypeListComponent } from './components/component-type-list/component-type-list.component';
 import { ComponentTypeDetailComponent } from './components/component-type-detail/component-type-detail.component';
 import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
+import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
 
 // Services
 import { RoomService } from './services/room.service';
@@ -34,6 +35,7 @@ import { RoomService } from './services/room.service';
     ComponentTypeListComponent,
     ComponentTypeDetailComponent,
     AttributeListComponent,
+    AttributeDetailComponent,
   ],
   imports: [
     BrowserModule,
