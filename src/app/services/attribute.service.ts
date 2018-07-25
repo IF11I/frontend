@@ -1,25 +1,46 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
 import { Attribute } from 'src/app/model/attribute';
+
 import { ResponseMessage } from 'src/app/model/response-message';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+/**
+ * Service to handle CRUD operations for attributes.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AttributeService {
-// The attributes.service handles the communication with the backend, regarding rooms.
 
-  private url = "/api/attributes";
+  /** The URL to the corresponding REST route. */
+  private url = '/api/attributes';
+
+
   constructor(private httpClient: HttpClient) { }
 
-  // returns all the attribute from the server
+
+  /**
+   * Returns all attributes from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getAttributes(): Observable<Attribute[]> {
     return this.httpClient.get<Attribute[]>(this.url);
   }
 
-  // returns the attribute with a given Id from the server
+
+  /**
+   * Returns the attribute with the given id from the server.
+   *
+   * @param id The attribute's id.
+   *
+   * @author Martin Wünsch
+   */
   getAttributeById(id: number): Observable<Attribute> {
     return this.httpClient.get<Attribute>(this.url + "/" + id);
   }
@@ -37,10 +58,23 @@ export class AttributeService {
         return of({ isSuccessful: false, messageText: 'Attribut konnte nicht angelegt werden' });
       });
 
-    return of({ isSuccessful: true, messageText: 'Room created' });
+  /**
+   * Creates a new attribute on the server.
+   *
+   * @param attribute The attribute to create.
+   *
+   * @author Martin Wünsch
+   */
   }
 
-  // updates attributes on the server
+
+  /**
+   * Updates the given attribute on the server.
+   *
+   * @param attribute The attribute to update.
+   *
+   * @author Martin Wünsch
+   */
   updateAttribute(attribute: Attribute): Observable<ResponseMessage> {
     var x = this.httpClient.put<Attribute>(this.url + "/" + attribute.id, attribute).subscribe(res => {
       console.log(res);
@@ -55,7 +89,14 @@ export class AttributeService {
     return of({ isSuccessful: true, messageText: 'attribute updated' });
   }
 
-  // deletes a attributes on the server
+
+  /**
+   * Deletes the given attribute from the server.
+   *
+   * @param attribute The attribute to delete.
+   *
+   * @author Martin Wünsch
+   */
   deleteAttribute(attribute: Attribute): Observable<ResponseMessage> {
     this.httpClient.delete(this.url + "/" + attribute.id).subscribe(res => {
       console.log(res);
@@ -69,4 +110,5 @@ export class AttributeService {
       });
     return of({ isSuccessful: true, messageText: 'attribute deleted' });
   }
+
 }

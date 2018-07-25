@@ -6,27 +6,54 @@ import { ComponentType } from 'src/app/model/component-type';
 import { ResponseMessage } from 'src/app/model/response-message';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
+/**
+ * Service to handle CRUD operations for component types.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class ComponentTypeService {
+
+  /** The URL to the corresponding REST route. */
   private url = '/api/componenttypes';
+
 
   constructor(private httpClient: HttpClient) { }
 
-  // retrieves all Component types from the database
+
+  /**
+   * Returns all component types from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getComponentType(): Observable<ComponentType[]> {
     return this.httpClient.get<ComponentType[]>(this.url);
   }
 
-  // retrieves an Component types from the database per id
+
+  /**
+   * Returns the component type with the given id from the server.
+   *
+   * @param id The component type's id.
+   *
+   * @author Martin Wünsch
+   */
   getComponentTypeById(id: number): Observable<ComponentType> {
     return this.httpClient.get<ComponentType>(this.url + '/' + id);
   }
 
-  // creates an Component types on the database
+
+  /**
+   * Creates a new component type on the server.
+   *
+   * @param componentType The component type to update.
+   *
+   * @author Martin Wünsch
+   */
   createComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-    var x = this.httpClient.post<ComponentType>(this.url, componentType).subscribe(res => {
+    let x = this.httpClient.post<ComponentType>(this.url, componentType).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -40,9 +67,16 @@ export class ComponentTypeService {
     return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
   }
 
- // updates Component types on the server
+
+ /**
+   * Updates the given component type on the server.
+   *
+   * @param componentType The component type to update.
+   *
+   * @author Martin Wünsch
+   */
  updateComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-  var x = this.httpClient.put<ComponentType>(this.url + "/" + componentType.id, componentType).subscribe(res => {
+  let x = this.httpClient.put<ComponentType>(this.url + '/' + componentType.id, componentType).subscribe(res => {
     console.log(res);
   },
     (err: HttpErrorResponse) => {
@@ -55,9 +89,16 @@ export class ComponentTypeService {
   return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
 }
 
-// deletes a Component types on the server
+
+/**
+ * Deletes the given component type from the server.
+ *
+ * @param componentType The component type to delete.
+ *
+ * @author Martin Wünsch
+ */
 deleteComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-  this.httpClient.delete(this.url + "/" + componentType.id).subscribe(res => {
+  this.httpClient.delete(this.url + '/' + componentType.id).subscribe(res => {
     console.log(res);
   },
     (err: HttpErrorResponse) => {

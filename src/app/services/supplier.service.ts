@@ -6,29 +6,54 @@ import { Observable, of } from 'rxjs';
 import { ResponseMessage } from '../model/response-message';
 import { Supplier } from '../model/supplier';
 
+/**
+ * Service to handle CRUD operations for suppliers.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class SupplierService {
 
+  /** The URL to the corresponding REST route. */
   private url = '/api/suppliers';
 
 
   constructor(private httpClient: HttpClient) { }
 
-  // retrieves all suppliers from the database
+
+  /**
+   * Returns all suppliers from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getSuppliers(): Observable<Supplier[]> {
     return this.httpClient.get<Supplier[]>(this.url);
   }
 
-  // retrieves an supplier from the database per id
+
+  /**
+   * Returns the supplier with the given id from the server.
+   *
+   * @param id The supplier's id.
+   *
+   * @author Martin Wünsch
+   */
   getSupplierById(id: number): Observable<Supplier> {
     return this.httpClient.get<Supplier>(this.url + '/' + id);
   }
 
-  // creates an supplier on the database
+
+  /**
+   * Creates a new supplier on the server.
+   *
+   * @param supplier The supplier to create.
+   *
+   * @author Martin Wünsch
+   */
   createSupplier(supplier: Supplier): Observable<ResponseMessage> {
-    var x = this.httpClient.post<Supplier>(this.url, supplier).subscribe(res => {
+    let x = this.httpClient.post<Supplier>(this.url, supplier).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -42,9 +67,16 @@ export class SupplierService {
     return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
   }
 
- // updates supplier on the server
+
+  /**
+   * Updates the given supplier on the server.
+   *
+   * @param supplier The supplier to update.
+   *
+   * @author Martin Wünsch
+   */
  updateSupplier(supplier: Supplier): Observable<ResponseMessage> {
-  var x = this.httpClient.put<Supplier>(this.url + "/" + supplier.id, supplier).subscribe(res => {
+  let x = this.httpClient.put<Supplier>(this.url + '/' + supplier.id, supplier).subscribe(res => {
     console.log(res);
   },
     (err: HttpErrorResponse) => {
@@ -57,9 +89,16 @@ export class SupplierService {
   return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
 }
 
-// deletes a supplier on the server
+
+  /**
+   * Deletes the given supplier from the server.
+   *
+   * @param supplier The supplier to delete.
+   *
+   * @author Martin Wünsch
+   */
 deleteSupplier(supplier: Supplier): Observable<ResponseMessage> {
-  this.httpClient.delete(this.url + "/" + supplier.id).subscribe(res => {
+  this.httpClient.delete(this.url + '/' + supplier.id).subscribe(res => {
     console.log(res);
   },
     (err: HttpErrorResponse) => {
@@ -71,4 +110,5 @@ deleteSupplier(supplier: Supplier): Observable<ResponseMessage> {
     });
   return of({ isSuccessful: true, messageText: 'Zulieferer gelöscht' });
 }
+
 }

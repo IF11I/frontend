@@ -3,31 +3,57 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
-import { Component } from '../model/component';
-import { ResponseMessage } from '../model/response-message';
+import { Component } from 'src/app/model/component';
+import { ResponseMessage } from 'src/app/model/response-message';
 
+/**
+ * Service to handle CRUD operations for components.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
-// The component.service handles the communication with the backend, regarding rooms.
 export class ComponentService {
 
-  private url = "/api/components";
+  /** The URL to the corresponding REST route. */
+  private url = '/api/components';
+
+
   constructor(private httpClient: HttpClient) { }
 
-  // returns all the Components from the server
+
+  /**
+   * Returns all components from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getComponent(): Observable<Component[]> {
     return this.httpClient.get<Component[]>(this.url);
   }
 
-  // returns the Component with a given Id from the server
+
+  /**
+   * Returns the component with the given id from the server.
+   *
+   * @param id The component's id.
+   *
+   * @author Martin Wünsch
+   */
   getComponentById(id: number): Observable<Component> {
-    return this.httpClient.get<Component>(this.url + "/" + id);
+    return this.httpClient.get<Component>(this.url + '/' + id);
   }
 
-  // creates a Component on server 
+
+  /**
+   * Creates a new component on the server.
+   *
+   * @param attribute The attribute to create.
+   *
+   * @author Martin Wünsch
+   */
   createComponent(component: Component): Observable<ResponseMessage> {
-    var x = this.httpClient.post<Component>(this.url, component).subscribe(res => {
+    let x = this.httpClient.post<Component>(this.url, component).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -41,9 +67,16 @@ export class ComponentService {
     return of({ isSuccessful: true, messageText: 'Komponente created' });
   }
 
-  // updates Component on the server
+
+  /**
+   * Updates the given component on the server.
+   *
+   * @param component The component to update.
+   *
+   * @author Martin Wünsch
+   */
   updateComponent(component: Component): Observable<ResponseMessage> {
-    var x = this.httpClient.put<Component>(this.url + "/" + component.id, component).subscribe(res => {
+    let x = this.httpClient.put<Component>(this.url + '/' + component.id, component).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -56,9 +89,16 @@ export class ComponentService {
     return of({ isSuccessful: true, messageText: 'Komponente updated' });
   }
 
-  // deletes a Component on the server
+
+  /**
+   * Deletes the given component from the server.
+   *
+   * @param component The component to delete.
+   *
+   * @author Martin Wünsch
+   */
   deleteComponent(component: Component): Observable<ResponseMessage> {
-    this.httpClient.delete(this.url + "/" + component.id).subscribe(res => {
+    this.httpClient.delete(this.url + '/' + component.id).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -70,4 +110,5 @@ export class ComponentService {
       });
     return of({ isSuccessful: true, messageText: 'Komponente deleted' });
   }
+
 }
