@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { Component as ComponentEntity } from 'src/app/model/component';
 import { Room } from 'src/app/model/room';
 import { Supplier } from 'src/app/model/supplier';
@@ -76,6 +77,47 @@ export class ComponentDetailComponent implements OnInit {
         }
       })
     ).subscribe(component => this.component = component);
+  }
+
+
+  /**
+   * Save or create the current component.
+   *
+   * @author Nils Weber
+   */
+  private saveComponent() {
+    if (this.component.id) {
+      // Component exists in the database: Update it.
+      this.componentService.updateComponent(this.component);
+    } else {
+      // Component doesn't exists in the database: Create it.
+      this.componentService.createComponent(this.component);
+    }
+
+    this.router.navigateByUrl('/components');
+  }
+
+
+  /**
+   * Ask for the user's confirmation for deleting the current component.
+   *
+   * @author Nils Weber
+   */
+  private confirmComponentDeletion() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteComponent(); }});
+  }
+
+
+  /**
+   * Delete the current component.
+   * This shouldn't be called directly from a button click since no confirmation is required.
+   *
+   * @author Nils Weber
+   */
+  private deleteComponent() {
+    this.componentService.deleteComponent(this.component);
+    this.router.navigateByUrl('/components');
   }
 
 }
