@@ -68,11 +68,9 @@ export class SupplierDetailComponent implements OnInit {
    */
   private saveSupplier() {
     if (this.supplier.id) {
-      // Supplier exists in the database: Update it.
-      // TODO: this.supplierService.updateSupplier(this.supplier);
+      this.supplierService.updateSupplier(this.supplier);
     } else {
-      // Supplier doesn't exist in the database: Create it.
-      // TODO: this.supplierService.createSupplier(this.supplier);
+      this.supplierService.createSupplier(this.supplier);
     }
 
     this.router.navigateByUrl('/suppliers');
@@ -97,7 +95,7 @@ export class SupplierDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteSupplier() {
-    // this.supplierService.deleteSupplier(this.supplier);
+    this.supplierService.deleteSupplier(this.supplier);
     this.router.navigateByUrl('/suppliers');
   }
 

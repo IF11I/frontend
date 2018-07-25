@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
@@ -9,43 +9,65 @@ import { ResponseMessage } from '../model/response-message';
 @Injectable({
   providedIn: 'root'
 })
+// The room.service handles the communication with the backend, regarding rooms.
 export class RoomService {
 
-  private fakeRooms: Room[] = [
-    { id: 1, name: 'Room 1', number: 'r001', notes: '' },
-    { id: 2, name: 'Room 2', number: 'r002', notes: '' },
-    { id: 3, name: 'Room 3', number: 'r003', notes: '' },
-  ];
-
+  private url = "/api/rooms";
   constructor(private httpClient: HttpClient) { }
 
+  // returns all the rooms from the server
   getRooms(): Observable<Room[]> {
-    return of(this.fakeRooms);
+    return this.httpClient.get<Room[]>(this.url);
   }
 
+  // returns the room with a given Id from the server
   getRoomById(id: number): Observable<Room> {
-    return of(this.fakeRooms.find(room => room.id === id));
+    return this.httpClient.get<Room>(this.url + "/" + id);
   }
 
+  // creates a room on server 
   createRoom(room: Room): Observable<ResponseMessage> {
-    // room.id = this.fakeRooms.length + 1;
-    this.fakeRooms.push(room);
+    var x = this.httpClient.post<Room>(this.url, room).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Raum konnte nicht angelegt werden' });
+      });
+
     return of({ isSuccessful: true, messageText: 'Room created' });
   }
 
+  // updates room on the server
   updateRoom(room: Room): Observable<ResponseMessage> {
-    const roomIndex = this.fakeRooms.findIndex(_room => _room.id === room.id);
-    this.fakeRooms[roomIndex] = room;
+    var x = this.httpClient.put<Room>(this.url + "/" + room.id, room).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Raum konnte nicht upgedated werden' });
+      });
     return of({ isSuccessful: true, messageText: 'Room updated' });
   }
 
-  deleteRoomById(id: number): Observable<ResponseMessage> {
-    const roomIndex = this.fakeRooms.findIndex(room => room.id === id);
-    this.fakeRooms.splice(roomIndex, 1);
-    return of({ isSuccessful: true, messageText: 'Room deleted' });
-  }
-
+  // deletes a room on the server
   deleteRoom(room: Room): Observable<ResponseMessage> {
-    return this.deleteRoomById(room.id);
+    this.httpClient.delete(this.url + "/" + room.id).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Raum konnte nicht gelöscht werden' });
+      });
+    return of({ isSuccessful: true, messageText: 'Room deleted' });
   }
 }

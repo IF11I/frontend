@@ -4,46 +4,69 @@ import { Observable, of } from 'rxjs';
 
 import { ComponentType } from 'src/app/model/component-type';
 import { ResponseMessage } from 'src/app/model/response-message';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComponentTypeService {
+  private url = '/api/componenttypes';
 
-  private fakeTypes: ComponentType[] = [
-    { id: 1, name: 'Type1', attributes: [ { id: 1, label: 'Attr1' } ] },
-    { id: 2, name: 'Type2', attributes: [ { id: 2, label: 'Attr2' } ] },
-  ];
+  constructor(private httpClient: HttpClient) { }
 
-  constructor() { }
-
-  getTypes(): Observable<ComponentType[]> {
-    return of(this.fakeTypes);
+  // retrieves all Component types from the database
+  getComponentType(): Observable<ComponentType[]> {
+    return this.httpClient.get<ComponentType[]>(this.url);
   }
 
-  getTypeById(id: number): Observable<ComponentType> {
-    return of(this.fakeTypes.find(type => type.id === id));
+  // retrieves an Component types from the database per id
+  getComponentTypeById(id: number): Observable<ComponentType> {
+    return this.httpClient.get<ComponentType>(this.url + '/' + id);
   }
 
-  createType(componentType: ComponentType): Observable<ResponseMessage> {
-    // room.id = this.fakeRooms.length + 1;
-    this.fakeTypes.push(componentType);
-    return of({ isSuccessful: true, messageText: 'ComponentType created' });
+  // creates an Component types on the database
+  createComponentType(componentType: ComponentType): Observable<ResponseMessage> {
+    var x = this.httpClient.post<ComponentType>(this.url, componentType).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht angelegt werden' });
+      });
+
+    return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
   }
 
-  updateType(componentType: ComponentType): Observable<ResponseMessage> {
-    const typeIndex = this.fakeTypes.findIndex(_componentType => _componentType.id === componentType.id);
-    this.fakeTypes[typeIndex] = componentType;
-    return of({ isSuccessful: true, messageText: 'ComponentType updated' });
-  }
+ // updates Component types on the server
+ updateComponentType(componentType: ComponentType): Observable<ResponseMessage> {
+  var x = this.httpClient.put<ComponentType>(this.url + "/" + componentType.id, componentType).subscribe(res => {
+    console.log(res);
+  },
+    (err: HttpErrorResponse) => {
+      console.log(err.error);
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.status);
+      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht upgedated werden' });
+    });
+  return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
+}
 
-  deleteTypeById(id: number): Observable<ResponseMessage> {
-    const typeIndex = this.fakeTypes.findIndex(room => room.id === id);
-    this.fakeTypes.splice(typeIndex, 1);
-    return of({ isSuccessful: true, messageText: 'ComponentType deleted' });
-  }
-
-  deleteType(componentType: ComponentType): Observable<ResponseMessage> {
-    return this.deleteTypeById(componentType.id);
-  }
+// deletes a Component types on the server
+deleteComponentType(componentType: ComponentType): Observable<ResponseMessage> {
+  this.httpClient.delete(this.url + "/" + componentType.id).subscribe(res => {
+    console.log(res);
+  },
+    (err: HttpErrorResponse) => {
+      console.log(err.error);
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.status);
+      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht gelöscht werden' });
+    });
+  return of({ isSuccessful: true, messageText: 'Zulieferer gelöscht' });
+}
 }

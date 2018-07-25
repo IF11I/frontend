@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { MatDialog, MatSelectionList } from '@angular/material';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { ComponentType } from 'src/app/model/component-type';
@@ -67,8 +67,7 @@ export class ComponentTypeDetailComponent implements OnInit {
           this.title.setTitle('IT-Verwaltung · Component Types · New');
           return of(new ComponentType());
         } else {
-          // Get the existing component type.
-          return this.componentTypeService.getTypeById(+idParam);
+          return this.componentTypeService.getComponentTypeById(+idParam);
         }
       })
     ).subscribe(componentType => this.componentType = componentType);
@@ -99,10 +98,10 @@ export class ComponentTypeDetailComponent implements OnInit {
 
     if (this.componentType.id) {
       // Component type exists in the database: Update it.
-      this.componentTypeService.updateType(this.componentType);
+      this.componentTypeService.updateComponentType(this.componentType);
     } else {
       // Component type doesn't exists in the database: Create it.
-      this.componentTypeService.createType(this.componentType);
+      this.componentTypeService.createComponentType(this.componentType);
     }
 
     this.router.navigateByUrl('/componenttypes');
@@ -127,7 +126,7 @@ export class ComponentTypeDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteComponentType() {
-    this.componentTypeService.deleteType(this.componentType);
+    this.componentTypeService.deleteComponentType(this.componentType);
     this.router.navigateByUrl('/componenttypes');
   }
 
