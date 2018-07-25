@@ -35,6 +35,7 @@ export class RoomService {
         console.log(err.name);
         console.log(err.message);
         console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Raum konnte nicht angelegt werden' });
       });
 
     return of({ isSuccessful: true, messageText: 'Room created' });

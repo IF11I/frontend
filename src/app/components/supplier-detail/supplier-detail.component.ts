@@ -47,9 +47,9 @@ export class SupplierDetailComponent implements OnInit {
 
   private saveSupplier() {
     if (this.supplier.id) {
-      // this.supplierService.updateRoom(this.supplier);
+      this.supplierService.updateSupplier(this.supplier);
     } else {
-      // this.supplierService.createRoom(this.supplier);
+      this.supplierService.createSupplier(this.supplier);
     }
 
     this.router.navigateByUrl('/suppliers');
@@ -63,7 +63,7 @@ export class SupplierDetailComponent implements OnInit {
 
 
   private deleteSupplier() {
-    // this.supplierService.deleteSupplier(this.supplier);
+    this.supplierService.deleteSupplier(this.supplier);
     this.router.navigateByUrl('/suppliers');
   }
 }
