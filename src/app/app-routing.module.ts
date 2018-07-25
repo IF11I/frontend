@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Components
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomDetailComponent } from './components/room-detail/room-detail.component';
 import { SupplierListComponent } from './components/supplier-list/supplier-list.component';
@@ -10,6 +11,7 @@ import { ComponentTypeDetailComponent } from './components/component-type-detail
 import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
 import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
 
+/** The app's routes. */
 const routes: Routes = [
  { path: 'rooms', component: RoomListComponent },
  { path: 'room/:id', component: RoomDetailComponent },
@@ -21,6 +23,11 @@ const routes: Routes = [
  { path: 'attribute/:id', component: AttributeDetailComponent },
 ];
 
+/**
+ * A module for handling the app's routing functionality.
+ *
+ * @author Nils Weber
+ */
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import {
   MatDialogModule,
   MatToolbarModule,
@@ -12,30 +13,25 @@ import {
   MatIconModule,
 } from '@angular/material';
 
+/** Material modules to import/export. */
+const materialModules = [
+  MatDialogModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule,
+  MatTableModule,
+  MatSortModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatIconModule,
+];
+
+/**
+ * A module for handling importing Angular Material's modules.
+ */
 @NgModule({
-  imports: [
-    MatDialogModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatTableModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  exports: [
-    MatDialogModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatTableModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: materialModules,
+  exports: materialModules,
 })
 export class MaterialModule { }

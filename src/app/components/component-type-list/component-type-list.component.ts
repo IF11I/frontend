@@ -2,9 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
-import { ComponentType } from 'src/app/model/component-type';
 import { ComponentTypeService } from 'src/app/services/component-type.service';
 
+/**
+ * Component for displaying a list of all available component types.
+ *
+ * @author Nils Weber
+ */
 @Component({
   selector: 'app-component-type-list',
   templateUrl: './component-type-list.component.html',
@@ -12,22 +16,41 @@ import { ComponentTypeService } from 'src/app/services/component-type.service';
 })
 export class ComponentTypeListComponent implements OnInit {
 
+  /** Reference to the table's sorting handler. */
   @ViewChild(MatSort) sort: MatSort;
 
+
+  /** The table's data source. */
   private dataSource = new MatTableDataSource();
+
+  /** The columns to display in the table. */
   private columnsToDisplay = ['name', 'actions'];
+
 
   constructor(private title: Title, private componentTypeService: ComponentTypeService) { }
 
+
+  /**
+   * Lifecycle-Hook: On Init
+   *
+   * @author Nils Weber
+   */
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Component Types');
     this.dataSource.sort = this.sort;
     this.componentTypeService.getComponentType().subscribe(types => this.dataSource.data = types);
   }
 
+
+  /**
+   * Applies a given filter to the table.
+   *
+   * @param filterValue The value by which the table should be filterd.
+   *
+   * @author Nils Weber
+   */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 
 }
