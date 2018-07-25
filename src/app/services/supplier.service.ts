@@ -28,7 +28,7 @@ export class SupplierService {
 
   // creates an supplier on the database
   createSupplier(supplier: Supplier): Observable<ResponseMessage> {
-    var x = this.httpClient.post<Supplier>('/api/suppliers', supplier).subscribe(res => {
+    var x = this.httpClient.post<Supplier>(this.url, supplier).subscribe(res => {
       console.log(res);
     },
       (err: HttpErrorResponse) => {
@@ -42,7 +42,7 @@ export class SupplierService {
     return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
   }
 
- // updates room on the server
+ // updates supplier on the server
  updateSupplier(supplier: Supplier): Observable<ResponseMessage> {
   var x = this.httpClient.put<Supplier>(this.url + "/" + supplier.id, supplier).subscribe(res => {
     console.log(res);
@@ -57,7 +57,7 @@ export class SupplierService {
   return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
 }
 
-// deletes a room on the server
+// deletes a supplier on the server
 deleteSupplier(supplier: Supplier): Observable<ResponseMessage> {
   this.httpClient.delete(this.url + "/" + supplier.id).subscribe(res => {
     console.log(res);

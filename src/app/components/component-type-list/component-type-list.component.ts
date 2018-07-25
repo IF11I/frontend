@@ -22,7 +22,7 @@ export class ComponentTypeListComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Component Types');
     this.dataSource.sort = this.sort;
-    this.componentTypeService.getTypes().subscribe(types => this.dataSource.data = types);
+    this.componentTypeService.getComponentType().subscribe(types => this.dataSource.data = types);
   }
 
   applyFilter(filterValue: string) {

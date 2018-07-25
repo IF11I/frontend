@@ -46,7 +46,7 @@ export class ComponentTypeDetailComponent implements OnInit {
           this.title.setTitle('IT-Verwaltung · Component Types · New');
           return of(new ComponentType());
         } else {
-          return this.componentTypeService.getTypeById(+idParam);
+          return this.componentTypeService.getComponentTypeById(+idParam);
         }
       })
     ).subscribe(componentType => this.setComponentType(componentType));
@@ -68,9 +68,9 @@ export class ComponentTypeDetailComponent implements OnInit {
     this.componentType.attributes = selectedAttributes;
 
     if (this.componentType.id) {
-      this.componentTypeService.updateType(this.componentType);
+      this.componentTypeService.updateComponentType(this.componentType);
     } else {
-      this.componentTypeService.deleteType(this.componentType);
+      this.componentTypeService.createComponentType(this.componentType);
     }
 
     this.router.navigateByUrl('/componenttypes');
@@ -84,7 +84,7 @@ export class ComponentTypeDetailComponent implements OnInit {
 
 
   private deleteComponentType() {
-    this.componentTypeService.deleteType(this.componentType);
+    this.componentTypeService.deleteComponentType(this.componentType);
     this.router.navigateByUrl('/componenttypes');
   }
 

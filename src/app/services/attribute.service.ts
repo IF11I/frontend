@@ -4,46 +4,69 @@ import { Observable, of } from 'rxjs';
 
 import { Attribute } from 'src/app/model/attribute';
 import { ResponseMessage } from 'src/app/model/response-message';
-
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class AttributeService {
+// The attributes.service handles the communication with the backend, regarding rooms.
 
-  private fakeTypes: Attribute[] = [
-    { id: 1, label: 'Attr1' },
-    { id: 2, label: 'Attr2' },
-  ];
+  private url = "/api/attributes";
+  constructor(private httpClient: HttpClient) { }
 
-  constructor() { }
-
+  // returns all the attribute from the server
   getAttributes(): Observable<Attribute[]> {
-    return of(this.fakeTypes);
+    return this.httpClient.get<Attribute[]>(this.url);
   }
 
+  // returns the attribute with a given Id from the server
   getAttributeById(id: number): Observable<Attribute> {
-    return of(this.fakeTypes.find(type => type.id === id));
+    return this.httpClient.get<Attribute>(this.url + "/" + id);
   }
 
-  createAttribute(componentType: Attribute): Observable<ResponseMessage> {
-    // room.id = this.fakeRooms.length + 1;
-    this.fakeTypes.push(componentType);
-    return of({ isSuccessful: true, messageText: 'ComponentType created' });
+  // creates a attribute on server 
+  createAttribute(attribute: Attribute): Observable<ResponseMessage> {
+    var x = this.httpClient.post<Attribute>(this.url, attribute).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Attribut konnte nicht angelegt werden' });
+      });
+
+    return of({ isSuccessful: true, messageText: 'Room created' });
   }
 
-  updateAttribute(componentType: Attribute): Observable<ResponseMessage> {
-    const typeIndex = this.fakeTypes.findIndex(_componentType => _componentType.id === componentType.id);
-    this.fakeTypes[typeIndex] = componentType;
-    return of({ isSuccessful: true, messageText: 'ComponentType updated' });
+  // updates attributes on the server
+  updateAttribute(attribute: Attribute): Observable<ResponseMessage> {
+    var x = this.httpClient.put<Attribute>(this.url + "/" + attribute.id, attribute).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Attribut konnte nicht upgedated werden' });
+      });
+    return of({ isSuccessful: true, messageText: 'attribute updated' });
   }
 
-  deleteAttributeById(id: number): Observable<ResponseMessage> {
-    const typeIndex = this.fakeTypes.findIndex(room => room.id === id);
-    this.fakeTypes.splice(typeIndex, 1);
-    return of({ isSuccessful: true, messageText: 'ComponentType deleted' });
-  }
-
-  deleteAttribute(componentType: Attribute): Observable<ResponseMessage> {
-    return this.deleteAttributeById(componentType.id);
+  // deletes a attributes on the server
+  deleteAttribute(attribute: Attribute): Observable<ResponseMessage> {
+    this.httpClient.delete(this.url + "/" + attribute.id).subscribe(res => {
+      console.log(res);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err.error);
+        console.log(err.name);
+        console.log(err.message);
+        console.log(err.status);
+        return of({ isSuccessful: false, messageText: 'Attribut konnte nicht gelöscht werden' });
+      });
+    return of({ isSuccessful: true, messageText: 'attribute deleted' });
   }
 }
