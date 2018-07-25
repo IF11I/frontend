@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 import { Component as ComponentEntity } from 'src/app/model/component';
 import { Room } from 'src/app/model/room';
 import { Supplier } from 'src/app/model/supplier';
+import { ComponentService } from 'src/app/services/component.service';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { RoomService } from 'src/app/services/room.service';
 
@@ -38,7 +39,7 @@ export class ComponentDetailComponent implements OnInit {
     private title: Title,
     private route: ActivatedRoute,
     private router: Router,
-    // TODO: private componentService: ComponentService,
+    private componentService: ComponentService,
     private roomService: RoomService,
     private supplierService: SupplierService,
     private dialog: MatDialog,
@@ -71,7 +72,7 @@ export class ComponentDetailComponent implements OnInit {
           return of(new ComponentEntity());
         } else {
           // Get the existing component.
-          // TODO: return this.componentService.getTypeById(+idParam);
+          return this.componentService.getComponentById(+idParam);
         }
       })
     ).subscribe(component => this.component = component);

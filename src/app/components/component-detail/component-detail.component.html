@@ -1,6 +1,11 @@
 <div class="fields">
   <h3 class="mat-title">General Information</h3>
 
+  <!-- Component Name -->
+  <mat-form-field>
+    <input matInput placeholder="Component Name" [(ngModel)]="component.name" />
+  </mat-form-field>
+
   <!-- Room Selection -->
   <mat-form-field>
     <mat-select placeholder="Room" [(ngModel)]="component.roomId">

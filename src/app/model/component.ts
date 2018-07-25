@@ -8,6 +8,9 @@ import { Attribute } from './attribute';
  */
 export class Component extends DatabaseEntity {
 
+  /** The component's name. */
+  public name: string;
+
   /** The id of the room in which this component resides. */
   public roomId: number;
 
