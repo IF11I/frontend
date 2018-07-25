@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+// Routing
 import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material
@@ -24,6 +25,9 @@ import { AttributeDetailComponent } from './components/attribute-detail/attribut
 // Services
 import { RoomService } from './services/room.service';
 
+/**
+ * The app's main module that ties everything together.
+ */
 @NgModule({
   declarations: [
     AppComponent,
