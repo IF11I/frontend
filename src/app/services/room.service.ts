@@ -26,14 +26,31 @@ export class RoomService {
 
   // creates a room on server 
   createRoom(room: Room): Observable<ResponseMessage> {
-
+    var x = this.httpClient.post<Room>("/api/rooms", room).subscribe(res => {
+            console.log(res);
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err.error);
+            console.log(err.name);
+            console.log(err.message);
+            console.log(err.status);
+          });
     
     return of({ isSuccessful: true, messageText: 'Room created' });
   }
 
   // updates room on the server
   updateRoom(room: Room): Observable<ResponseMessage> {
-
+    var x = this.httpClient.put<Room>("/api/rooms/"+room.id, room).subscribe(res => {
+      console.log(res);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(err.error);
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.status);
+      return of({ isSuccessful: false, messageText: 'Raum konnte nicht upgedated werden' });
+    });
     return of({ isSuccessful: true, messageText: 'Room updated' });
   }
 
