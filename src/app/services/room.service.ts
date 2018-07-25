@@ -50,8 +50,16 @@ export class RoomService {
   }
 
   updateRoom(room: Room): Observable<ResponseMessage> {
-    const roomIndex = this.fakeRooms.findIndex(_room => _room.id === room.id);
-    this.fakeRooms[roomIndex] = room;
+
+    var x = this.httpClient.put<Room>("/api/rooms/"+room.id, room).subscribe(res => {
+      console.log(res);
+    },
+    (err: HttpErrorResponse) => {
+      console.log(err.error);
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.status);
+    });
     return of({ isSuccessful: true, messageText: 'Room updated' });
   }
 
