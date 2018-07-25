@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+// Routing
 import { AppRoutingModule } from './app-routing.module';
 
 // Angular Material
@@ -22,8 +23,14 @@ import { AttributeListComponent } from './components/attribute-list/attribute-li
 import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
 
 // Services
+import { AttributeService } from './services/attribute.service';
+import { ComponentTypeService } from './services/component-type.service';
 import { RoomService } from './services/room.service';
+import { SupplierService } from './services/supplier.service';
 
+/**
+ * The app's main module that ties everything together.
+ */
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +53,10 @@ import { RoomService } from './services/room.service';
     HttpClientModule,
   ],
   providers: [
+    AttributeService,
+    ComponentTypeService,
     RoomService,
+    SupplierService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],
