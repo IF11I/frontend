@@ -72,7 +72,7 @@ export class ComponentDetailComponent implements OnInit {
     this.supplierService.getSuppliers().subscribe(suppliers => this.suppliers = suppliers);
 
     // Get all availabe component types
-    this.componentTypeService.getComponentType().subscribe(componentTypes => this.componentTypes = componentTypes);
+    this.componentTypeService.getComponentTypes().subscribe(componentTypes => this.componentTypes = componentTypes);
 
     // Get the current component by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
