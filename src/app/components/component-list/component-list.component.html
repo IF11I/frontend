@@ -9,6 +9,12 @@
     <td mat-cell *matCellDef="let vm">{{ vm.componentName }}</td>
   </ng-container>
 
+  <!-- componen manufacturer column -->
+  <ng-container matColumnDef="componentManufacturer">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Hersteller</th>
+    <td mat-cell *matCellDef="let vm">{{ vm.componentManufacturer }}</td>
+  </ng-container>
+
   <!-- componen type column -->
   <ng-container matColumnDef="componentTypeName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Komponentenart</th>
