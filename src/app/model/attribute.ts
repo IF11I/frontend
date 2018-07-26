@@ -8,7 +8,7 @@ import { DatabaseEntity } from './database-entity';
 export class Attribute extends DatabaseEntity {
 
   /** The attribute's label. */
-  public label: string;
+  public label = '';
 
   /** The attribute's value. */
   public value?: string;

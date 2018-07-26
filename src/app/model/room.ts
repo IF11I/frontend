@@ -8,12 +8,12 @@ import { DatabaseEntity } from './database-entity';
 export class Room extends DatabaseEntity {
 
   /** The room's name. */
-  public name: string;
+  public name = '';
 
   /** The room's number. */
-  public number: string;
+  public number = '';
 
   /** Notes to this room.  */
-  public notes: string;
+  public notes = '';
 
 }

@@ -9,7 +9,7 @@ import { Attribute } from './attribute';
 export class ComponentType extends DatabaseEntity {
 
   /** The component type's name. */
-  public name: string;
+  public name = '';
 
   /** The attributes linked to this component type. */
   public attributes: Attribute[] = [];
