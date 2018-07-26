@@ -63,7 +63,7 @@ export class ComponentDetailComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Components · Detail');
+    this.title.setTitle('IT-Verwaltung · Komponenten · Detail');
 
     // Get all available rooms.
     this.roomService.getRooms().subscribe(rooms => this.rooms = rooms);
@@ -81,7 +81,7 @@ export class ComponentDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new component.
-          this.title.setTitle('IT-Verwaltung · Components · New');
+          this.title.setTitle('IT-Verwaltung · Komponenten · Neu');
           return of(new ComponentEntity());
         } else {
           // Get the existing component.

@@ -48,7 +48,7 @@ export class ComponentListComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Components');
+    this.title.setTitle('IT-Verwaltung · Komponenten');
     this.dataSource.sort = this.sort;
 
     // Get observables for all required resources.
