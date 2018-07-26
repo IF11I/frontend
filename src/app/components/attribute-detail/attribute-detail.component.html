@@ -1,13 +1,13 @@
 <div class="fields">
   <mat-form-field>
-    <input matInput placeholder="Attribute Name" [(ngModel)]="attribute.label" />
+    <input matInput placeholder="Attribut Name" [(ngModel)]="attribute.label" />
   </mat-form-field>
 </div>
 
 <div class="actions" *ngIf="attribute.id">
   <button mat-button color="warn" class="delete-button" (click)="confirmAttributeDeletion()">
     <mat-icon>delete</mat-icon>
-    Delete Attribute
+    Attribut löschen
   </button>
 </div>
 

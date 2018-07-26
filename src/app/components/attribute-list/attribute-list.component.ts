@@ -36,7 +36,7 @@ export class AttributeListComponent implements OnInit {
    * @author Nils Weber
    */
   ngOnInit() {
-    this.title.setTitle('IT-Verwaltung · Attributes');
+    this.title.setTitle('IT-Verwaltung · Attribute');
     this.dataSource.sort = this.sort;
     this.attributeService.getAttributes().subscribe(attributes => this.dataSource.data = attributes);
   }

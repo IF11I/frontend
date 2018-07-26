@@ -42,7 +42,7 @@ export class RoomDetailComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Rooms · Detail');
+    this.title.setTitle('IT-Verwaltung · Räume · Details');
 
     // Get the current room by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
@@ -51,7 +51,7 @@ export class RoomDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new room.
-          this.title.setTitle('IT-Verwaltung · Rooms · New');
+          this.title.setTitle('IT-Verwaltung · Räume · Neuer Raum');
           return of(new Room());
         } else {
           // Get the exising room.

@@ -1,41 +1,41 @@
 <div class="fields">
   <mat-form-field>
-    <input matInput placeholder="Supplier Name" [(ngModel)]="supplier.name" />
+    <input matInput placeholder="Name" [(ngModel)]="supplier.name" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier Street" [(ngModel)]="supplier.street" />
+    <input matInput placeholder="Straße" [(ngModel)]="supplier.street" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier ZIP" [(ngModel)]="supplier.postalCode" />
+    <input matInput placeholder="Postleitzahl" [(ngModel)]="supplier.postalCode" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier City" [(ngModel)]="supplier.city" />
+    <input matInput placeholder="Stadt" [(ngModel)]="supplier.city" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier Telephone" [(ngModel)]="supplier.telephone" />
+    <input matInput placeholder="Telefonnummer" [(ngModel)]="supplier.telephone" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier Mobile" [(ngModel)]="supplier.mobile" />
+    <input matInput placeholder="Mobilnummer" [(ngModel)]="supplier.mobile" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier Fax" [(ngModel)]="supplier.fax" />
+    <input matInput placeholder="Fax" [(ngModel)]="supplier.fax" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Supplier E-Mail" [(ngModel)]="supplier.email" />
+    <input matInput placeholder="E-Mail" [(ngModel)]="supplier.email" />
   </mat-form-field>
 </div>
 
 <div class="actions" *ngIf="supplier.id">
   <button mat-button color="warn" class="delete-button" (click)="confirmSupplierDeletion()">
     <mat-icon>delete</mat-icon>
-    Delete Supplier
+    Zulieferer löschen
   </button>
 </div>
   

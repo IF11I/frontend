@@ -42,7 +42,7 @@ export class SupplierDetailComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Suppliers · Detail');
+    this.title.setTitle('IT-Verwaltung · Zulieferer · Details');
 
     // Get the current supplier by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
@@ -50,7 +50,7 @@ export class SupplierDetailComponent implements OnInit {
         const idParam = params.get('id');
         if (idParam === 'new') {
           // Create a new attribute.
-          this.title.setTitle('IT-Verwaltung · Suppliers · New');
+          this.title.setTitle('IT-Verwaltung · Zulieferer · Neuer Zulieferer');
           return of(new Supplier());
         } else {
           // Get the exising attribute.
