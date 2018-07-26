@@ -29,7 +29,7 @@ export class RoomDetailComponent implements OnInit {
 
 
   /** The room currently displayed. */
-  private room = new Room();
+  public room = new Room();
 
 
   constructor(
@@ -59,7 +59,7 @@ export class RoomDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new room.
-          this.title.setTitle('IT-Verwaltung · Räume · Neuer Raum');
+          this.title.setTitle('IT-Verwaltung · Räume · Neu');
           return of(new Room());
         } else {
           // Get the exising room.
@@ -78,7 +78,7 @@ export class RoomDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveRoom() {
+  saveRoom() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -104,7 +104,7 @@ export class RoomDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmRoomDeletion() {
+  confirmRoomDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteRoom(); }});
   }

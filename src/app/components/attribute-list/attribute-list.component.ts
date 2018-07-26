@@ -22,10 +22,10 @@ export class AttributeListComponent implements OnInit {
 
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['label', 'actions'];
+  public columnsToDisplay = ['label', 'actions'];
 
 
   constructor(

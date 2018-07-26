@@ -5,6 +5,13 @@
   <mat-sidenav mode="side" [fixedInViewport]="true" [fixedTopGap]="64" opened>
     <!-- Navigation -->
     <mat-nav-list>
+
+      <!-- Dashboard -->
+      <a mat-list-item routerLink="/dashboard">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <span mat-line>Dashboard</span>
+      </a>
+
       <!-- Rooms -->
       <a mat-list-item routerLink="/rooms">
         <mat-icon mat-list-icon>meeting_room</mat-icon>

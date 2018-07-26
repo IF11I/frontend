@@ -29,7 +29,7 @@ export class SupplierDetailComponent implements OnInit {
 
 
   /** The supplier currently displayed. */
-  private supplier = new Supplier();
+  public supplier = new Supplier();
 
 
   constructor(
@@ -58,7 +58,7 @@ export class SupplierDetailComponent implements OnInit {
         const idParam = params.get('id');
         if (idParam === 'new') {
           // Create a new attribute.
-          this.title.setTitle('IT-Verwaltung · Zulieferer · Neuer Zulieferer');
+          this.title.setTitle('IT-Verwaltung · Zulieferer · Neu');
           return of(new Supplier());
         } else {
           // Get the exising attribute.
@@ -77,7 +77,7 @@ export class SupplierDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveSupplier() {
+  saveSupplier() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -103,7 +103,7 @@ export class SupplierDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmSupplierDeletion() {
+  confirmSupplierDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteSupplier(); }});
   }

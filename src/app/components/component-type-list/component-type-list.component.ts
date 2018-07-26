@@ -23,10 +23,10 @@ export class ComponentTypeListComponent implements OnInit {
 
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'attributes', 'actions'];
+  public columnsToDisplay = ['name', 'attributes', 'actions'];
 
 
   constructor(
@@ -42,7 +42,7 @@ export class ComponentTypeListComponent implements OnInit {
    * @author Nils Weber
    */
   ngOnInit() {
-    this.title.setTitle('IT-Verwaltung · Component Types');
+    this.title.setTitle('IT-Verwaltung · Komponentenarten');
     this.dataSource.sort = this.sort;
     this.componentTypeService.getComponentTypes().subscribe(
       types => this.dataSource.data = types,

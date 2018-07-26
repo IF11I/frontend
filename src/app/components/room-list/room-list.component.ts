@@ -26,10 +26,10 @@ export class RoomListComponent implements OnInit {
 
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource<RoomViewModel>();
+  public dataSource = new MatTableDataSource<RoomViewModel>();
 
   /** The columns to display in the table.  */
-  private columnsToDisplay = ['roomNumber', 'roomName', 'componentTypeList', 'actions'];
+  public columnsToDisplay = ['roomNumber', 'roomName', 'componentTypeList', 'actions'];
 
 
   constructor(

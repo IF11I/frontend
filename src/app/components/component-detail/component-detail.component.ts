@@ -35,16 +35,16 @@ export class ComponentDetailComponent implements OnInit {
 
 
   /** The component currently displayed. */
-  private component = new ComponentEntity();
+  public component = new ComponentEntity();
 
   /** The list of all available rooms. */
-  private rooms: Room[] = [];
+  public rooms: Room[] = [];
 
   /** The list of all available suppliers. */
-  private suppliers: Supplier[] = [];
+  public suppliers: Supplier[] = [];
 
   /** The list of all availabe component types. */
-  private componentTypes: ComponentType[] = [];
+  public componentTypes: ComponentType[] = [];
 
 
   constructor(
@@ -105,7 +105,7 @@ export class ComponentDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveComponent() {
+  saveComponent() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -131,7 +131,7 @@ export class ComponentDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmComponentDeletion() {
+  confirmComponentDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteComponent(); }});
   }
@@ -153,7 +153,7 @@ export class ComponentDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private componentTypeSelectionChanged() {
+  componentTypeSelectionChanged() {
     const componentType = this.componentTypes.find(type => type.id === this.component.componentTypeId);
     this.component.attributes = componentType.attributes.map(({ id, label, value }) => ({ id, label, value }));
   }
