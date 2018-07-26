@@ -65,7 +65,8 @@ export class RoomListComponent implements OnInit {
         const typeCounts = {};
 
         // Count component types.
-        components
+        const x = components
+          .filter(component => component.roomId === room.id)
           .map(component => componentTypes.find(componentType => componentType.id === component.componentTypeId).name)
           .forEach(typeName => { if (typeName in typeCounts) { typeCounts[typeName] += 1; } else { typeCounts[typeName] = 1; } });
 
