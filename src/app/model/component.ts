@@ -8,6 +8,9 @@ import { Attribute } from './attribute';
  */
 export class Component extends DatabaseEntity {
 
+  /** The component's name. */
+  public name: string;
+
   /** The id of the room in which this component resides. */
   public roomId: number;
 
@@ -15,10 +18,10 @@ export class Component extends DatabaseEntity {
   public supplierId: number;
 
   /** The date of purchase. */
-  public datePurchased: Date;
+  public datePurchased: string;
 
   /** The date the component's warranty ends. */
-  public dateWarrantyEnd: Date;
+  public dateWarrantyEnd: string;
 
   /** Notes to this component. */
   public notes: string;
