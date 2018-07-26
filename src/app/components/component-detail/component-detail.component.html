@@ -6,6 +6,15 @@
     <input matInput placeholder="Component Name" [(ngModel)]="component.name" />
   </mat-form-field>
 
+  <!-- Component Type Selection -->
+  <mat-form-field>
+    <mat-select placeholder="Component Type" [disabled]="component.id" (selectionChange)="componentTypeSelectionChanged()" [(ngModel)]="component.componentTypeId">
+      <mat-option *ngFor="let componentType of componentTypes" [value]="componentType.id">
+        {{ componentType.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <!-- Room Selection -->
   <mat-form-field>
     <mat-select placeholder="Room" [(ngModel)]="component.roomId">
