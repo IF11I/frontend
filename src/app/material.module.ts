@@ -13,6 +13,7 @@ import {
   MatDatepickerModule,
   MatButtonModule,
   MatIconModule,
+  MatSnackBarModule,
 } from '@angular/material';
 
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -32,6 +33,7 @@ const materialModules = [
   MatMomentDateModule,
   MatButtonModule,
   MatIconModule,
+  MatSnackBarModule,
 ];
 
 /**

@@ -3,12 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { ResponseMessage } from 'src/app/model/response-message';
 import { Supplier } from 'src/app/model/supplier';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for handling displaying/editing/deleting a single supplier.
@@ -31,6 +33,7 @@ export class SupplierDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private supplierService: SupplierService,
+    private statusDialogService: StatusDialogService,
     private dialog: MatDialog,
   ) { }
 
@@ -57,7 +60,10 @@ export class SupplierDetailComponent implements OnInit {
           return this.supplierService.getSupplierById(+idParam);
         }
       })
-    ).subscribe(supplier => this.supplier = supplier);
+    ).subscribe(
+      supplier => this.supplier = supplier,
+      error => this.statusDialogService.displayError(error)
+    );
   }
 
 
@@ -67,13 +73,17 @@ export class SupplierDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveSupplier() {
+    let saveUpdate$: Observable<ResponseMessage>;
+
     if (this.supplier.id) {
-      this.supplierService.updateSupplier(this.supplier);
+      // Supplier exists in the database: Update it.
+      saveUpdate$ = this.supplierService.updateSupplier(this.supplier);
     } else {
-      this.supplierService.createSupplier(this.supplier);
+      // Supplier doesn't exists in the database: Create it.
+      saveUpdate$ = this.supplierService.createSupplier(this.supplier);
     }
 
-    this.router.navigateByUrl('/suppliers');
+    this.handleResponseMessage(saveUpdate$);
   }
 
 
@@ -95,8 +105,20 @@ export class SupplierDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteSupplier() {
-    this.supplierService.deleteSupplier(this.supplier);
-    this.router.navigateByUrl('/suppliers');
+    this.handleResponseMessage(this.supplierService.deleteSupplier(this.supplier));
+  }
+
+
+  /**
+   * Handles an observable `ResponseMessage` and redirects to list view on success.
+   *
+   * @author Nils Weber
+   */
+  private handleResponseMessage(response$: Observable<ResponseMessage>) {
+    this.statusDialogService.handleResponseMessage(response$);
+    response$.subscribe(response => {
+      if (response.isSuccessful) { this.router.navigateByUrl('/suppliers'); }
+    });
   }
 
 }
