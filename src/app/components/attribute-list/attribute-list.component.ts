@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import { AttributeService } from 'src/app/services/attribute.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for displaying a list of all available attributes.
@@ -24,10 +25,14 @@ export class AttributeListComponent implements OnInit {
   private dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'actions'];
+  private columnsToDisplay = ['label', 'actions'];
 
 
-  constructor(private title: Title, private attributeService: AttributeService) { }
+  constructor(
+    private title: Title,
+    private attributeService: AttributeService,
+    private statusDialogService: StatusDialogService,
+  ) { }
 
 
   /**
@@ -38,7 +43,8 @@ export class AttributeListComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Attribute');
     this.dataSource.sort = this.sort;
-    this.attributeService.getAttributes().subscribe(attributes => this.dataSource.data = attributes);
+    this.attributeService.getAttributes().subscribe(attributes => this.dataSource.data = attributes,
+      error => this.statusDialogService.displayError(error));
   }
 
 

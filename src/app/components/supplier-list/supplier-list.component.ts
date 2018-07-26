@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import { SupplierService } from 'src/app/services/supplier.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for displaying a list of all available supplier.
@@ -26,7 +27,11 @@ export class SupplierListComponent implements OnInit {
   private columnsToDisplay = ['name', 'street', 'postalCode', 'city', 'actions'];
 
 
-  constructor(private title: Title, private supplierService: SupplierService) { }
+  constructor(
+    private title: Title,
+    private supplierService: SupplierService,
+    private statusDialogService: StatusDialogService,
+  ) { }
 
 
   /**
@@ -37,7 +42,9 @@ export class SupplierListComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Zulieferer');
     this.dataSource.sort = this.sort;
-    this.supplierService.getSuppliers().subscribe(suppliers => this.dataSource.data = suppliers);
+    this.supplierService.getSuppliers().subscribe(
+      suppliers => this.dataSource.data = suppliers,
+      error => this.statusDialogService.displayError(error));
   }
 
 

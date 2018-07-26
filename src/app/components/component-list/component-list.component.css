@@ -6,17 +6,6 @@ mat-form-field
 
 
 table { width: 100% }
-.mat-column-roomNumber { width: 100px }
-
-
-.mat-column-componentTypeList
-{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
 .mat-column-actions { width: 20px }
 
 .add-button

@@ -3,12 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { ResponseMessage } from 'src/app/model/response-message';
 import { Room } from 'src/app/model/room';
 import { RoomService } from 'src/app/services/room.service';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for handling displaying/editing/deleting a single room.
@@ -31,6 +33,7 @@ export class RoomDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private roomService: RoomService,
+    private statusDialogService: StatusDialogService,
     private dialog: MatDialog,
   ) { }
 
@@ -58,7 +61,10 @@ export class RoomDetailComponent implements OnInit {
           return this.roomService.getRoomById(+idParam);
         }
       })
-    ).subscribe(room => this.room = room);
+    ).subscribe(
+      room => this.room = room,
+      error => this.statusDialogService.displayError(error)
+    );
   }
 
 
@@ -68,15 +74,17 @@ export class RoomDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveRoom() {
+    let saveUpdate$: Observable<ResponseMessage>;
+
     if (this.room.id) {
       // Room exists in the database: Update it.
-      this.roomService.updateRoom(this.room);
+      saveUpdate$ = this.roomService.updateRoom(this.room);
     } else {
       // Room doesn't exists in the database: Create it.
-      this.roomService.createRoom(this.room);
+      saveUpdate$ = this.roomService.createRoom(this.room);
     }
 
-    this.router.navigateByUrl('/rooms');
+    this.handleResponseMessage(saveUpdate$);
   }
 
 
@@ -90,6 +98,7 @@ export class RoomDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteRoom(); }});
   }
 
+
   /**
    * Delete the current room.
    * This shouldn't be called directly from a button click since no confirmation is required.
@@ -97,8 +106,21 @@ export class RoomDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteRoom() {
-    this.roomService.deleteRoom(this.room);
-    this.router.navigateByUrl('/rooms');
+    this.handleResponseMessage(this.roomService.deleteRoom(this.room));
+  }
+
+
+  /**
+   * Handles an observable `ResponseMessage` and redirects to list view on success.
+   *
+   * @author Nils Weber
+   */
+  private handleResponseMessage(response$: Observable<ResponseMessage>) {
+    response$.subscribe(response => {
+      this.statusDialogService.displayResponse(response);
+      if (response.isSuccessful) { this.router.navigateByUrl('/rooms'); }
+    },
+    error => this.statusDialogService.displayError(error));
   }
 
 }

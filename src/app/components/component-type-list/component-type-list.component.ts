@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import { ComponentTypeService } from 'src/app/services/component-type.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for displaying a list of all available component types.
@@ -27,7 +28,11 @@ export class ComponentTypeListComponent implements OnInit {
   private columnsToDisplay = ['name', 'actions'];
 
 
-  constructor(private title: Title, private componentTypeService: ComponentTypeService) { }
+  constructor(
+    private title: Title,
+    private componentTypeService: ComponentTypeService,
+    private statusDialogService: StatusDialogService,
+  ) { }
 
 
   /**
@@ -38,7 +43,9 @@ export class ComponentTypeListComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Component Types');
     this.dataSource.sort = this.sort;
-    this.componentTypeService.getComponentType().subscribe(types => this.dataSource.data = types);
+    this.componentTypeService.getComponentTypes().subscribe(
+      types => this.dataSource.data = types,
+      error => this.statusDialogService.displayError(error));
   }
 
 

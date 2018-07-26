@@ -1,74 +1,83 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ResponseMessage } from '../model/response-message';
 import { Supplier } from '../model/supplier';
 
+/**
+ * Service to handle CRUD operations for suppliers.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class SupplierService {
 
+  /** The URL to the corresponding REST route. */
   private url = '/api/suppliers';
 
 
   constructor(private httpClient: HttpClient) { }
 
-  // retrieves all suppliers from the database
+
+  /**
+   * Returns all suppliers from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getSuppliers(): Observable<Supplier[]> {
     return this.httpClient.get<Supplier[]>(this.url);
   }
 
-  // retrieves an supplier from the database per id
+
+  /**
+   * Returns the supplier with the given id from the server.
+   *
+   * @param id The supplier's id.
+   *
+   * @author Martin Wünsch
+   */
   getSupplierById(id: number): Observable<Supplier> {
     return this.httpClient.get<Supplier>(this.url + '/' + id);
   }
 
-  // creates an supplier on the database
-  createSupplier(supplier: Supplier): Observable<ResponseMessage> {
-    var x = this.httpClient.post<Supplier>(this.url, supplier).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht angelegt werden' });
-      });
 
-    return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
+  /**
+   * Creates a new supplier on the server.
+   *
+   * @param supplier The supplier to create.
+   *
+   * @author Martin Wünsch
+   */
+  createSupplier(supplier: Supplier): Observable<ResponseMessage> {
+    return this.httpClient.post<ResponseMessage>(this.url, supplier);
   }
 
- // updates supplier on the server
- updateSupplier(supplier: Supplier): Observable<ResponseMessage> {
-  var x = this.httpClient.put<Supplier>(this.url + "/" + supplier.id, supplier).subscribe(res => {
-    console.log(res);
-  },
-    (err: HttpErrorResponse) => {
-      console.log(err.error);
-      console.log(err.name);
-      console.log(err.message);
-      console.log(err.status);
-      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht upgedated werden' });
-    });
-  return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
-}
 
-// deletes a supplier on the server
-deleteSupplier(supplier: Supplier): Observable<ResponseMessage> {
-  this.httpClient.delete(this.url + "/" + supplier.id).subscribe(res => {
-    console.log(res);
-  },
-    (err: HttpErrorResponse) => {
-      console.log(err.error);
-      console.log(err.name);
-      console.log(err.message);
-      console.log(err.status);
-      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht gelöscht werden' });
-    });
-  return of({ isSuccessful: true, messageText: 'Zulieferer gelöscht' });
-}
+  /**
+   * Updates the given supplier on the server.
+   *
+   * @param supplier The supplier to update.
+   *
+   * @author Martin Wünsch
+   */
+  updateSupplier(supplier: Supplier): Observable<ResponseMessage> {
+    return this.httpClient.put<ResponseMessage>(this.url + '/' + supplier.id, supplier);
+  }
+
+
+  /**
+   * Deletes the given supplier from the server.
+   *
+   * @param supplier The supplier to delete.
+   *
+   * @author Martin Wünsch
+   */
+  deleteSupplier(supplier: Supplier): Observable<ResponseMessage> {
+    return this.httpClient.delete<ResponseMessage>(this.url + '/' + supplier.id);
+  }
+
 }

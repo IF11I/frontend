@@ -21,12 +21,15 @@ import { ComponentTypeListComponent } from './components/component-type-list/com
 import { ComponentTypeDetailComponent } from './components/component-type-detail/component-type-detail.component';
 import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
 import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
+import { ComponentListComponent } from './components/component-list/component-list.component';
+import { ComponentDetailComponent } from './components/component-detail/component-detail.component';
 
 // Services
 import { AttributeService } from './services/attribute.service';
 import { ComponentTypeService } from './services/component-type.service';
 import { RoomService } from './services/room.service';
 import { SupplierService } from './services/supplier.service';
+import { StatusDialogService } from './services/status-dialog.service';
 
 /**
  * The app's main module that ties everything together.
@@ -43,6 +46,8 @@ import { SupplierService } from './services/supplier.service';
     ComponentTypeDetailComponent,
     AttributeListComponent,
     AttributeDetailComponent,
+    ComponentListComponent,
+    ComponentDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +62,7 @@ import { SupplierService } from './services/supplier.service';
     ComponentTypeService,
     RoomService,
     SupplierService,
+    StatusDialogService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],

@@ -10,6 +10,8 @@ import { ComponentTypeListComponent } from './components/component-type-list/com
 import { ComponentTypeDetailComponent } from './components/component-type-detail/component-type-detail.component';
 import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
 import { AttributeDetailComponent } from './components/attribute-detail/attribute-detail.component';
+import { ComponentListComponent } from './components/component-list/component-list.component';
+import { ComponentDetailComponent } from './components/component-detail/component-detail.component';
 
 /** The app's routes. */
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
  { path: 'componenttype/:id', component: ComponentTypeDetailComponent },
  { path: 'attributes', component: AttributeListComponent },
  { path: 'attribute/:id', component: AttributeDetailComponent },
+ { path: 'components', component: ComponentListComponent },
+ { path: 'component/:id', component: ComponentDetailComponent },
 ];
 
 /**
