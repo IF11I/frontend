@@ -1,22 +1,22 @@
 <div class="fields">
   <mat-form-field>
-    <input matInput placeholder="Room Name" [(ngModel)]="room.name" />
+    <input matInput placeholder="Raumbezeichnung" [(ngModel)]="room.name" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Room No." [(ngModel)]="room.number" />
+    <input matInput placeholder="Raumnummer" [(ngModel)]="room.number" />
   </mat-form-field>
 
   <mat-form-field>
-    <textarea matInput placeholder="Notes" [(ngModel)]="room.notes"></textarea>
+    <textarea matInput placeholder="Notizen" [(ngModel)]="room.notes"></textarea>
   </mat-form-field>
 </div>
 
 <div class="actions" *ngIf="room.id">
   <button mat-button color="warn" class="delete-button" (click)="confirmRoomDeletion()">
     <mat-icon>delete</mat-icon>
-    Delete Room
+    Raum löschen
   </button>
 </div>
 
-<button mat-fab class="save-button" (click)="saveRoom()"><mat-icon>save</mat-icon></button>
+<button mat-fab matTooltip="Raum speichern" matTooltipPosition="left" class="save-button" (click)="saveRoom()"><mat-icon>save</mat-icon></button>

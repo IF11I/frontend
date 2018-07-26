@@ -11,19 +11,19 @@
   
     <!-- street column -->
     <ng-container matColumnDef="street">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Street</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Straße</th>
       <td mat-cell *matCellDef="let supplier">{{ supplier.street }}</td>
     </ng-container>
 
     <!-- postal code column -->
     <ng-container matColumnDef="postalCode">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ZIP</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Postleitzahl</th>
       <td mat-cell *matCellDef="let supplier">{{ supplier.postalCode }}</td>
     </ng-container>
 
     <!-- city column -->
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Stadt</th>
       <td mat-cell *matCellDef="let supplier">{{ supplier.city }}</td>
     </ng-container>
   
@@ -31,7 +31,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let supplier">
-        <a mat-icon-button [routerLink]="['/supplier', supplier.id]"><mat-icon>edit</mat-icon></a>
+        <a mat-icon-button matTooltip="Zulieferer bearbeiten" matTooltipPosition="left" [routerLink]="['/supplier', supplier.id]"><mat-icon>edit</mat-icon></a>
       </td>
     </ng-container>
   
@@ -39,5 +39,5 @@
     <tr mat-row *matRowDef="let rowData; columns : columnsToDisplay"></tr>
   </table>
   
-  <button mat-fab class="add-button" routerLink="/supplier/new"><mat-icon>add</mat-icon></button>
+  <button mat-fab matTooltip="Neuen Zulieferer hinzufügen" matTooltipPosition="left" class="add-button" routerLink="/supplier/new"><mat-icon>add</mat-icon></button>
   

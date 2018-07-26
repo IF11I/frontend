@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatButtonModule,
+  MatTooltipModule,
   MatIconModule,
   MatSnackBarModule,
 } from '@angular/material';
@@ -32,6 +33,7 @@ const materialModules = [
   MatDatepickerModule,
   MatMomentDateModule,
   MatButtonModule,
+  MatTooltipModule,
   MatIconModule,
   MatSnackBarModule,
 ];

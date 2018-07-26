@@ -40,7 +40,7 @@ export class SupplierListComponent implements OnInit {
    * @author Nils Weber
    */
   ngOnInit() {
-    this.title.setTitle('IT-Verwaltung · Suppliers');
+    this.title.setTitle('IT-Verwaltung · Zulieferer');
     this.dataSource.sort = this.sort;
     this.supplierService.getSuppliers().subscribe(
       suppliers => this.dataSource.data = suppliers,

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs';
-
 import { ResponseMessage } from 'src/app/model/response-message';
 
 /**
@@ -16,13 +14,13 @@ import { ResponseMessage } from 'src/app/model/response-message';
 export class StatusDialogService {
 
   /** Prefix for successful messages. */
-  private successPrefix = 'Success: ';
+  private successPrefix = '';
 
   /** SnackBar configuration for successful messages. */
   private successMessageConfig = { duration: 2000 };
 
   /** Prefix for error messages. */
-  private errorPrefix = 'Error: ';
+  private errorPrefix = 'Fehler: ';
 
   /** SnackBar configuration for error messages. */
   private errorMessageConfig = { duration: 5000 };

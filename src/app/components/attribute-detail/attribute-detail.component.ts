@@ -45,7 +45,7 @@ export class AttributeDetailComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Attributes · Detail');
+    this.title.setTitle('IT-Verwaltung · Attribute · Details');
 
     // Get the current attribute by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
@@ -54,7 +54,7 @@ export class AttributeDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new attribute.
-          this.title.setTitle('IT-Verwaltung · Attributes · New');
+          this.title.setTitle('IT-Verwaltung · Attribute · Neues Attribut');
           return of(new Attribute());
         } else {
           // Get the exising attribute.

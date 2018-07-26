@@ -55,7 +55,7 @@ export class ComponentTypeDetailComponent implements OnInit {
    */
   ngOnInit() {
     // Set app title.
-    this.title.setTitle('IT-Verwaltung · Component Types · Detail');
+    this.title.setTitle('IT-Verwaltung · Komponentenarten · Details');
 
     // Get all available attributes.
     this.attributeService.getAttributes().subscribe(
@@ -69,7 +69,7 @@ export class ComponentTypeDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new component type.
-          this.title.setTitle('IT-Verwaltung · Component Types · New');
+          this.title.setTitle('IT-Verwaltung · Komponentenarten · Neue Komponentenart');
           return of(new ComponentType());
         } else {
           return this.componentTypeService.getComponentTypeById(+idParam);

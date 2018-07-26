@@ -47,8 +47,7 @@ export class RoomListComponent implements OnInit {
    * @author Nils Weber
    */
   ngOnInit() {
-    // Set app title.
-    this.title.setTitle('IT-Verwaltung · Rooms');
+    this.title.setTitle('IT-Verwaltung · Räume');
     this.dataSource.sort = this.sort;
 
     // Get observables for all required resources.
