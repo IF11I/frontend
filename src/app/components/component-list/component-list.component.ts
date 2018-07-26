@@ -29,7 +29,7 @@ export class ComponentListComponent implements OnInit {
   private dataSource = new MatTableDataSource<ComponentViewModel>();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['componentName', 'componentTypeName', 'roomNumber', 'roomName', 'actions'];
+  private columnsToDisplay = ['componentName', 'componentTypeName', 'componentManufacturer', 'roomNumber', 'roomName', 'actions'];
 
 
   constructor(
@@ -68,6 +68,7 @@ export class ComponentListComponent implements OnInit {
         return {
           componentId: component.id,
           componentName: component.name,
+          componentManufacturer: component.manufacturer,
           componentTypeName: componentType.name,
           roomNumber: room.number,
           roomName: room.name,
@@ -101,6 +102,7 @@ interface ComponentViewModel {
 
   componentId: number;
   componentName: string;
+  componentManufacturer: string;
   componentTypeName: string;
   roomNumber: string;
   roomName: string;
