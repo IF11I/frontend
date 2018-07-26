@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -30,6 +30,10 @@ import { ResponseMessage } from 'src/app/model/response-message';
 })
 export class ComponentDetailComponent implements OnInit {
 
+  /** Reference to the input form. */
+  @ViewChild('form') form: ElementRef<HTMLFormElement>;
+
+
   /** The component currently displayed. */
   private component = new ComponentEntity();
 
@@ -52,6 +56,7 @@ export class ComponentDetailComponent implements OnInit {
     private supplierService: SupplierService,
     private componentTypeService: ComponentTypeService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private statusDialogService: StatusDialogService,
   ) { }
 
@@ -101,6 +106,12 @@ export class ComponentDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveComponent() {
+    // Don't procede if form is invalid.
+    if (!this.form.nativeElement.checkValidity()) {
+      this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
+      return;
+    }
+
     let saveUpdate$: Observable<ResponseMessage>;
 
     if (this.component.id) {

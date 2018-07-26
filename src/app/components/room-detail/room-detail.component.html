@@ -1,16 +1,18 @@
-<div class="fields">
-  <mat-form-field>
-    <input matInput placeholder="Raumbezeichnung" [(ngModel)]="room.name" />
-  </mat-form-field>
+<form #form>
+  <div class="fields">
+    <mat-form-field>
+      <input #roomName matInput placeholder="Raumbezeichnung" [(ngModel)]="room.name" name="roomName" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Raumnummer" [(ngModel)]="room.number" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Raumnummer" [(ngModel)]="room.number" name="roomNumber" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput placeholder="Notizen" [(ngModel)]="room.notes"></textarea>
-  </mat-form-field>
-</div>
+    <mat-form-field>
+      <textarea matInput placeholder="Notizen" [(ngModel)]="room.notes" name="roomNotes"></textarea>
+    </mat-form-field>
+  </div>
+</form>
 
 <div class="actions" *ngIf="room.id">
   <button mat-button color="warn" class="delete-button" (click)="confirmRoomDeletion()">

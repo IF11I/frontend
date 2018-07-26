@@ -9,7 +9,7 @@ import { Attribute } from './attribute';
 export class Component extends DatabaseEntity {
 
   /** The component's name. */
-  public name: string;
+  public name = '';
 
   /** The id of the room in which this component resides. */
   public roomId: number;
@@ -18,21 +18,21 @@ export class Component extends DatabaseEntity {
   public supplierId: number;
 
   /** The date of purchase. */
-  public datePurchased: string;
+  public datePurchased = '';
 
   /** The date the component's warranty ends. */
-  public dateWarrantyEnd: string;
+  public dateWarrantyEnd = '';
 
   /** Notes to this component. */
-  public notes: string;
+  public notes = '';
 
   /** The component's manufacturer. */
-  public manufacturer: string;
+  public manufacturer = '';
 
   /** The id of this component's component type. */
   public componentTypeId: number;
 
   /** The list of attributes this component has. */
-  public attributes: Attribute[];
+  public attributes: Attribute[] = [];
 
 }

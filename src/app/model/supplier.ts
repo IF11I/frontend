@@ -8,27 +8,27 @@ import { DatabaseEntity } from './database-entity';
 export class Supplier extends DatabaseEntity {
 
   /** The supplier's name. */
-  public name: string;
+  public name = '';
 
   /** The supplier's street. */
-  public street: string;
+  public street = '';
 
   /** The supplier's postal code or zip. */
-  public postalCode: string;
+  public postalCode = '';
 
   /** The supplier's city. */
-  public city: string;
+  public city = '';
 
   /** The supplier's telephone number. */
-  public telephone: string;
+  public telephone = '';
 
   /** The supplier's mobile phone number. */
-  public mobile: string;
+  public mobile = '';
 
   /** The supplier's fax number. */
-  public fax: string;
+  public fax = '';
 
   /** The supplier's email address. */
-  public email: string;
+  public email = '';
 
 }

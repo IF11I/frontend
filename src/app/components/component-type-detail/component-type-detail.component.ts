@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { MatDialog, MatSelectionList } from '@angular/material';
+import { MatDialog, MatSelectionList, MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -26,6 +26,9 @@ import { ResponseMessage } from 'src/app/model/response-message';
 })
 export class ComponentTypeDetailComponent implements OnInit {
 
+  /** Reference to the input form. */
+  @ViewChild('form') form: ElementRef<HTMLFormElement>;
+
   /** Reference to the attribute list. */
   @ViewChild('attributesList') attributesList: MatSelectionList;
 
@@ -45,6 +48,7 @@ export class ComponentTypeDetailComponent implements OnInit {
     private attributeService: AttributeService,
     private statusDialogService: StatusDialogService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
 
@@ -99,6 +103,12 @@ export class ComponentTypeDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveComponentType() {
+    // Don't procede if form is invalid.
+    if (!this.form.nativeElement.checkValidity()) {
+      this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
+      return;
+    }
+
     let saveUpdate$: Observable<ResponseMessage>;
 
     // Get the selected attributes and add them to the component type.
