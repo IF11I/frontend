@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 
 // Components
 import { AppComponent } from './components/AppComponent/app.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomDetailComponent } from './components/room-detail/room-detail.component';
@@ -37,6 +38,7 @@ import { StatusDialogService } from './services/status-dialog.service';
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     ConfirmationDialogComponent,
     RoomListComponent,
     RoomDetailComponent,
