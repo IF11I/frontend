@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
+import { ComponentType } from 'src/app/model/component-type';
 import { ComponentTypeService } from 'src/app/services/component-type.service';
 import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
@@ -25,7 +26,7 @@ export class ComponentTypeListComponent implements OnInit {
   private dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'actions'];
+  private columnsToDisplay = ['name', 'attributes', 'actions'];
 
 
   constructor(
@@ -58,6 +59,13 @@ export class ComponentTypeListComponent implements OnInit {
    */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  getAttributesForComponentType(componentType: ComponentType) {
+    return componentType.attributes
+      .map(attribute => attribute.label)
+      .join(', ');
   }
 
 }
