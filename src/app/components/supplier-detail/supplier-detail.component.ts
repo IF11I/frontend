@@ -115,10 +115,11 @@ export class SupplierDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private handleResponseMessage(response$: Observable<ResponseMessage>) {
-    this.statusDialogService.handleResponseMessage(response$);
     response$.subscribe(response => {
+      this.statusDialogService.displayResponse(response);
       if (response.isSuccessful) { this.router.navigateByUrl('/suppliers'); }
-    });
+    },
+    error => this.statusDialogService.displayError(error));
   }
 
 }
