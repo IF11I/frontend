@@ -18,10 +18,10 @@ export class Component extends DatabaseEntity {
   public supplierId: number;
 
   /** The date of purchase. */
-  public datePurchased: Date;
+  public datePurchased: string;
 
   /** The date the component's warranty ends. */
-  public dateWarrantyEnd: Date;
+  public dateWarrantyEnd: string;
 
   /** Notes to this component. */
   public notes: string;

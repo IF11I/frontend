@@ -11,10 +11,11 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatNativeDateModule,
   MatButtonModule,
   MatIconModule,
 } from '@angular/material';
+
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 /** Material modules to import/export. */
 const materialModules = [
@@ -28,7 +29,7 @@ const materialModules = [
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatNativeDateModule,
+  MatMomentDateModule,
   MatButtonModule,
   MatIconModule,
 ];
@@ -39,5 +40,8 @@ const materialModules = [
 @NgModule({
   imports: materialModules,
   exports: materialModules,
+  providers: [
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+  ]
 })
 export class MaterialModule { }
