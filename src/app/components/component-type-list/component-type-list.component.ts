@@ -23,10 +23,10 @@ export class ComponentTypeListComponent implements OnInit {
 
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'attributes', 'actions'];
+  public columnsToDisplay = ['name', 'attributes', 'actions'];
 
 
   constructor(

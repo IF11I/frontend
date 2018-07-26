@@ -29,7 +29,7 @@ export class AttributeDetailComponent implements OnInit {
 
 
   /** The attribute currently displayed. */
-  private attribute = new Attribute();
+  public attribute = new Attribute();
 
 
   constructor(
@@ -78,7 +78,7 @@ export class AttributeDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveAttribute() {
+  saveAttribute() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -104,7 +104,7 @@ export class AttributeDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmAttributeDeletion() {
+  confirmAttributeDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteAttribute(); }});
   }

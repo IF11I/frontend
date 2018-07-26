@@ -26,10 +26,10 @@ export class ComponentListComponent implements OnInit {
 
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource<ComponentViewModel>();
+  public dataSource = new MatTableDataSource<ComponentViewModel>();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['componentName', 'componentTypeName', 'componentManufacturer', 'roomNumber', 'roomName', 'actions'];
+  public columnsToDisplay = ['componentName', 'componentTypeName', 'componentManufacturer', 'roomNumber', 'roomName', 'actions'];
 
 
   constructor(

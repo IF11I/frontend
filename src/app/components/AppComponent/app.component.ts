@@ -12,7 +12,10 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private get title() { return this.titleService.getTitle(); }
+
+  /** The app's title displayed in the toolbar. */
+  public get title() { return this.titleService.getTitle(); }
+
 
   constructor(private titleService: Title) { }
 }

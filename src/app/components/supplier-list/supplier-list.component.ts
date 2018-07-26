@@ -21,10 +21,10 @@ export class SupplierListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   /** The table's data source. */
-  private dataSource = new MatTableDataSource();
+  public dataSource = new MatTableDataSource();
 
   /** The columns to display in the table. */
-  private columnsToDisplay = ['name', 'street', 'postalCode', 'city', 'actions'];
+  public columnsToDisplay = ['name', 'street', 'postalCode', 'city', 'actions'];
 
 
   constructor(

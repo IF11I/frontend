@@ -34,10 +34,10 @@ export class ComponentTypeDetailComponent implements OnInit {
 
 
   /** The component type currently displayed. */
-  private componentType = new ComponentType();
+  public componentType = new ComponentType();
 
   /** The list of all available attributes. */
-  private attributes: Attribute[] = [];
+  public attributes: Attribute[] = [];
 
 
   constructor(
@@ -92,7 +92,7 @@ export class ComponentTypeDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private isAttributeSelected(attribute: Attribute) {
+  isAttributeSelected(attribute: Attribute) {
     return !!this.componentType.attributes.find(attr => attr.id === attribute.id);
   }
 
@@ -102,7 +102,7 @@ export class ComponentTypeDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveComponentType() {
+  saveComponentType() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -132,7 +132,7 @@ export class ComponentTypeDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmComponentTypeDeletion() {
+  confirmComponentTypeDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteComponentType(); }});
   }

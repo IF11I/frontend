@@ -29,7 +29,7 @@ export class SupplierDetailComponent implements OnInit {
 
 
   /** The supplier currently displayed. */
-  private supplier = new Supplier();
+  public supplier = new Supplier();
 
 
   constructor(
@@ -77,7 +77,7 @@ export class SupplierDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private saveSupplier() {
+  saveSupplier() {
     // Don't procede if form is invalid.
     if (!this.form.nativeElement.checkValidity()) {
       this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
@@ -103,7 +103,7 @@ export class SupplierDetailComponent implements OnInit {
    *
    * @author Nils Weber
    */
-  private confirmSupplierDeletion() {
+  confirmSupplierDeletion() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe(confirmed => { if (confirmed) { this.deleteSupplier(); }});
   }
