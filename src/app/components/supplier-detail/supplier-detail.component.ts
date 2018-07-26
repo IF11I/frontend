@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -24,6 +24,10 @@ import { StatusDialogService } from 'src/app/services/status-dialog.service';
 })
 export class SupplierDetailComponent implements OnInit {
 
+  /** Reference to the input form. */
+  @ViewChild('form') form: ElementRef<HTMLFormElement>;
+
+
   /** The supplier currently displayed. */
   private supplier = new Supplier();
 
@@ -35,6 +39,7 @@ export class SupplierDetailComponent implements OnInit {
     private supplierService: SupplierService,
     private statusDialogService: StatusDialogService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
 
@@ -73,6 +78,12 @@ export class SupplierDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveSupplier() {
+    // Don't procede if form is invalid.
+    if (!this.form.nativeElement.checkValidity()) {
+      this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
+      return;
+    }
+
     let saveUpdate$: Observable<ResponseMessage>;
 
     if (this.supplier.id) {

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -24,6 +24,10 @@ import { StatusDialogService } from 'src/app/services/status-dialog.service';
 })
 export class AttributeDetailComponent implements OnInit {
 
+  /** Reference to the input form. */
+  @ViewChild('form') form: ElementRef<HTMLFormElement>;
+
+
   /** The attribute currently displayed. */
   private attribute = new Attribute();
 
@@ -34,6 +38,7 @@ export class AttributeDetailComponent implements OnInit {
     private router: Router,
     private attributeService: AttributeService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private statusDialogService: StatusDialogService,
   ) { }
 
@@ -74,6 +79,12 @@ export class AttributeDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveAttribute() {
+    // Don't procede if form is invalid.
+    if (!this.form.nativeElement.checkValidity()) {
+      this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
+      return;
+    }
+
     let saveUpdate$: Observable<ResponseMessage>;
 
     if (this.attribute.id) {

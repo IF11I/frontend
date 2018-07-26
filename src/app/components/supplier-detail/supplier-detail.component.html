@@ -1,36 +1,38 @@
-<div class="fields">
-  <mat-form-field>
-    <input matInput placeholder="Name" [(ngModel)]="supplier.name" />
-  </mat-form-field>
+<form #form>
+  <div class="fields">
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="supplier.name" name="supplierName" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Straße" [(ngModel)]="supplier.street" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Straße" [(ngModel)]="supplier.street" name="supplierStreet" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Postleitzahl" [(ngModel)]="supplier.postalCode" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Postleitzahl" [(ngModel)]="supplier.postalCode" name="supplierPostalCode" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Stadt" [(ngModel)]="supplier.city" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Stadt" [(ngModel)]="supplier.city" name="supplierCity" required />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Telefonnummer" [(ngModel)]="supplier.telephone" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Telefonnummer" [(ngModel)]="supplier.telephone" name="supplierTelephone" />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Mobilnummer" [(ngModel)]="supplier.mobile" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Mobilnummer" [(ngModel)]="supplier.mobile" name="supplierMobile" />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Fax" [(ngModel)]="supplier.fax" />
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Fax" [(ngModel)]="supplier.fax" name="supplierFax" />
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="E-Mail" [(ngModel)]="supplier.email" />
-  </mat-form-field>
-</div>
+    <mat-form-field>
+      <input matInput placeholder="E-Mail" [(ngModel)]="supplier.email" name="supplierEmail" />
+    </mat-form-field>
+  </div>
+</form>
 
 <div class="actions" *ngIf="supplier.id">
   <button mat-button color="warn" class="delete-button" (click)="confirmSupplierDeletion()">
