@@ -29,6 +29,7 @@ import { AttributeService } from './services/attribute.service';
 import { ComponentTypeService } from './services/component-type.service';
 import { RoomService } from './services/room.service';
 import { SupplierService } from './services/supplier.service';
+import { StatusDialogService } from './services/status-dialog.service';
 
 /**
  * The app's main module that ties everything together.
@@ -61,6 +62,7 @@ import { SupplierService } from './services/supplier.service';
     ComponentTypeService,
     RoomService,
     SupplierService,
+    StatusDialogService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent],
