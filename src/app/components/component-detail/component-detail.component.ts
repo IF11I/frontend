@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
@@ -15,6 +15,8 @@ import { SupplierService } from 'src/app/services/supplier.service';
 import { RoomService } from 'src/app/services/room.service';
 import { ComponentType } from 'src/app/model/component-type';
 import { ComponentTypeService } from 'src/app/services/component-type.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
+import { ResponseMessage } from 'src/app/model/response-message';
 
 /**
  * Component for handling displaying/editing/deleting a single component.
@@ -50,6 +52,7 @@ export class ComponentDetailComponent implements OnInit {
     private supplierService: SupplierService,
     private componentTypeService: ComponentTypeService,
     private dialog: MatDialog,
+    private statusDialogService: StatusDialogService,
   ) { }
 
 
@@ -85,7 +88,10 @@ export class ComponentDetailComponent implements OnInit {
           return this.componentService.getComponentById(+idParam);
         }
       })
-    ).subscribe(component => this.component = component);
+    ).subscribe(
+      component => this.component = component,
+      error => this.statusDialogService.displayError(error)
+    );
   }
 
 
@@ -95,15 +101,17 @@ export class ComponentDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveComponent() {
+    let saveUpdate$: Observable<ResponseMessage>;
+
     if (this.component.id) {
       // Component exists in the database: Update it.
-      this.componentService.updateComponent(this.component);
+      saveUpdate$ = this.componentService.updateComponent(this.component);
     } else {
       // Component doesn't exists in the database: Create it.
-      this.componentService.createComponent(this.component);
+      saveUpdate$ = this.componentService.createComponent(this.component);
     }
 
-    this.router.navigateByUrl('/components');
+    this.handleResponseMessage(saveUpdate$);
   }
 
 
@@ -125,8 +133,7 @@ export class ComponentDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteComponent() {
-    this.componentService.deleteComponent(this.component);
-    this.router.navigateByUrl('/components');
+    this.handleResponseMessage(this.componentService.deleteComponent(this.component));
   }
 
 
@@ -138,6 +145,19 @@ export class ComponentDetailComponent implements OnInit {
   private componentTypeSelectionChanged() {
     const componentType = this.componentTypes.find(type => type.id === this.component.componentTypeId);
     this.component.attributes = componentType.attributes.map(({ id, label, value }) => ({ id, label, value }));
+  }
+
+
+  /**
+   * Handles an observable `ResponseMessage` and redirects to list view on success.
+   *
+   * @author Nils Weber
+   */
+  private handleResponseMessage(response$: Observable<ResponseMessage>) {
+    this.statusDialogService.handleResponseMessage(response$);
+    response$.subscribe(response => {
+      if (response.isSuccessful) { this.router.navigateByUrl('/components'); }
+    });
   }
 
 }

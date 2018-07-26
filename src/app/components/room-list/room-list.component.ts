@@ -7,6 +7,7 @@ import { forkJoin } from 'rxjs';
 import { RoomService } from 'src/app/services/room.service';
 import { ComponentService } from 'src/app/services/component.service';
 import { ComponentTypeService } from 'src/app/services/component-type.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for displaying a list of all available rooms.
@@ -36,6 +37,7 @@ export class RoomListComponent implements OnInit {
     private roomService: RoomService,
     private componentService: ComponentService,
     private componentTypeService: ComponentTypeService,
+    private statusDialogService: StatusDialogService
   ) { }
 
 
@@ -78,7 +80,8 @@ export class RoomListComponent implements OnInit {
           componentTypeList: typeNamesWithCounts.join(', ')
         };
       });
-    });
+    },
+    error => this.statusDialogService.displayError(error));
   }
 
 

@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 import { ComponentService } from 'src/app/services/component.service';
 import { RoomService } from 'src/app/services/room.service';
 import { ComponentTypeService } from 'src/app/services/component-type.service';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for displaying a list of all available components.
@@ -35,7 +36,8 @@ export class ComponentListComponent implements OnInit {
     private title: Title,
     private componentService: ComponentService,
     private componentTypeService: ComponentTypeService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private statusDialogService: StatusDialogService,
   ) { }
 
 
@@ -71,7 +73,8 @@ export class ComponentListComponent implements OnInit {
           roomName: room.name,
         };
       });
-    });
+    },
+    error => this.statusDialogService.displayError(error));
   }
 
 

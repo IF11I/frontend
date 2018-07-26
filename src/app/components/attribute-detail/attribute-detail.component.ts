@@ -3,12 +3,14 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Attribute } from 'src/app/model/attribute';
 import { AttributeService } from 'src/app/services/attribute.service';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import { ResponseMessage } from 'src/app/model/response-message';
+import { StatusDialogService } from 'src/app/services/status-dialog.service';
 
 /**
  * Component for handling displaying/editing/deleting a single attribute.
@@ -32,6 +34,7 @@ export class AttributeDetailComponent implements OnInit {
     private router: Router,
     private attributeService: AttributeService,
     private dialog: MatDialog,
+    private statusDialogService: StatusDialogService,
   ) { }
 
 
@@ -58,7 +61,10 @@ export class AttributeDetailComponent implements OnInit {
           return this.attributeService.getAttributeById(+idParam);
         }
       })
-    ).subscribe(attribute => this.attribute = attribute);
+    ).subscribe(
+      attribute => this.attribute = attribute,
+      error => this.statusDialogService.displayError(error)
+    );
   }
 
 
@@ -68,15 +74,17 @@ export class AttributeDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private saveAttribute() {
+    let saveUpdate$: Observable<ResponseMessage>;
+
     if (this.attribute.id) {
       // Attribute exists in the database: Update it.
-      this.attributeService.updateAttribute(this.attribute);
+      saveUpdate$ = this.attributeService.updateAttribute(this.attribute);
     } else {
       // Attribute doesn't exists in the database: Create it.
-      this.attributeService.createAttribute(this.attribute);
+      saveUpdate$ = this.attributeService.createAttribute(this.attribute);
     }
 
-    this.router.navigateByUrl('/attributes');
+    this.handleResponseMessage(saveUpdate$);
   }
 
 
@@ -98,8 +106,20 @@ export class AttributeDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private deleteAttribute() {
-    this.attributeService.deleteAttribute(this.attribute);
-    this.router.navigateByUrl('/attributes');
+    this.handleResponseMessage(this.attributeService.deleteAttribute(this.attribute));
+  }
+
+
+  /**
+   * Handles an observable `ResponseMessage` and redirects to list view on success.
+   *
+   * @author Nils Weber
+   */
+  private handleResponseMessage(response$: Observable<ResponseMessage>) {
+    this.statusDialogService.handleResponseMessage(response$);
+    response$.subscribe(response => {
+      if (response.isSuccessful) { this.router.navigateByUrl('/attributes'); }
+    });
   }
 
 }
