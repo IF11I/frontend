@@ -59,7 +59,7 @@ export class RoomDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new room.
-          this.title.setTitle('IT-Verwaltung · Räume · Neuer Raum');
+          this.title.setTitle('IT-Verwaltung · Räume · Neu');
           return of(new Room());
         } else {
           // Get the exising room.

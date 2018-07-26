@@ -58,7 +58,7 @@ export class SupplierDetailComponent implements OnInit {
         const idParam = params.get('id');
         if (idParam === 'new') {
           // Create a new attribute.
-          this.title.setTitle('IT-Verwaltung · Zulieferer · Neuer Zulieferer');
+          this.title.setTitle('IT-Verwaltung · Zulieferer · Neu');
           return of(new Supplier());
         } else {
           // Get the exising attribute.

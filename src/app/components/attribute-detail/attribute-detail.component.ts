@@ -59,7 +59,7 @@ export class AttributeDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new attribute.
-          this.title.setTitle('IT-Verwaltung · Attribute · Neues Attribut');
+          this.title.setTitle('IT-Verwaltung · Attribute · Neu');
           return of(new Attribute());
         } else {
           // Get the exising attribute.

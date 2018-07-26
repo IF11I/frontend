@@ -73,7 +73,7 @@ export class ComponentTypeDetailComponent implements OnInit {
 
         if (idParam === 'new') {
           // Create a new component type.
-          this.title.setTitle('IT-Verwaltung · Komponentenarten · Neue Komponentenart');
+          this.title.setTitle('IT-Verwaltung · Komponentenarten · Neu');
           return of(new ComponentType());
         } else {
           return this.componentTypeService.getComponentTypeById(+idParam);

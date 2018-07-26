@@ -42,7 +42,7 @@ export class ComponentTypeListComponent implements OnInit {
    * @author Nils Weber
    */
   ngOnInit() {
-    this.title.setTitle('IT-Verwaltung · Component Types');
+    this.title.setTitle('IT-Verwaltung · Komponentenarten');
     this.dataSource.sort = this.sort;
     this.componentTypeService.getComponentTypes().subscribe(
       types => this.dataSource.data = types,
