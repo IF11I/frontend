@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Room } from '../model/room';
 import { ResponseMessage } from '../model/response-message';
@@ -53,18 +53,7 @@ export class RoomService {
    * @author Martin Wünsch
    */
   createRoom(room: Room): Observable<ResponseMessage> {
-    let x = this.httpClient.post<Room>(this.url, room).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht angelegt werden' });
-      });
-
-    return of({ isSuccessful: true, messageText: 'Room created' });
+    return this.httpClient.post<ResponseMessage>(this.url, room);
   }
 
 
@@ -76,17 +65,7 @@ export class RoomService {
    * @author Martin Wünsch
    */
   updateRoom(room: Room): Observable<ResponseMessage> {
-    let x = this.httpClient.put<Room>(this.url + '/' + room.id, room).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht upgedated werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Room updated' });
+    return this.httpClient.put<ResponseMessage>(this.url + '/' + room.id, room);
   }
 
 
@@ -98,17 +77,7 @@ export class RoomService {
    * @author Martin Wünsch
    */
   deleteRoom(room: Room): Observable<ResponseMessage> {
-    this.httpClient.delete(this.url + '/' + room.id).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht gelöscht werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Room deleted' });
+    return this.httpClient.delete<ResponseMessage>(this.url + '/' + room.id);
   }
 
 }

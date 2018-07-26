@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ComponentType } from 'src/app/model/component-type';
 import { ResponseMessage } from 'src/app/model/response-message';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Service to handle CRUD operations for component types.
@@ -53,18 +53,7 @@ export class ComponentTypeService {
    * @author Martin Wünsch
    */
   createComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-    let x = this.httpClient.post<ComponentType>(this.url, componentType).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht angelegt werden' });
-      });
-
-    return of({ isSuccessful: true, messageText: 'Zulieferer angelegt' });
+    return this.httpClient.post<ResponseMessage>(this.url, componentType);
   }
 
 
@@ -75,39 +64,19 @@ export class ComponentTypeService {
    *
    * @author Martin Wünsch
    */
- updateComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-  let x = this.httpClient.put<ComponentType>(this.url + '/' + componentType.id, componentType).subscribe(res => {
-    console.log(res);
-  },
-    (err: HttpErrorResponse) => {
-      console.log(err.error);
-      console.log(err.name);
-      console.log(err.message);
-      console.log(err.status);
-      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht upgedated werden' });
-    });
-  return of({ isSuccessful: true, messageText: 'Zulieferer upgedated' });
-}
+  updateComponentType(componentType: ComponentType): Observable<ResponseMessage> {
+    return this.httpClient.put<ResponseMessage>(this.url + '/' + componentType.id, componentType);
+  }
 
 
-/**
- * Deletes the given component type from the server.
- *
- * @param componentType The component type to delete.
- *
- * @author Martin Wünsch
- */
-deleteComponentType(componentType: ComponentType): Observable<ResponseMessage> {
-  this.httpClient.delete(this.url + '/' + componentType.id).subscribe(res => {
-    console.log(res);
-  },
-    (err: HttpErrorResponse) => {
-      console.log(err.error);
-      console.log(err.name);
-      console.log(err.message);
-      console.log(err.status);
-      return of({ isSuccessful: false, messageText: 'Zulieferer konnte nicht gelöscht werden' });
-    });
-  return of({ isSuccessful: true, messageText: 'Zulieferer gelöscht' });
-}
+  /**
+   * Deletes the given component type from the server.
+   *
+   * @param componentType The component type to delete.
+   *
+   * @author Martin Wünsch
+   */
+  deleteComponentType(componentType: ComponentType): Observable<ResponseMessage> {
+    return this.httpClient.delete<ResponseMessage>(this.url + '/' + componentType.id);
+  }
 }

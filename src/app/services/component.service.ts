@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Component } from 'src/app/model/component';
 import { ResponseMessage } from 'src/app/model/response-message';
@@ -53,18 +53,7 @@ export class ComponentService {
    * @author Martin Wünsch
    */
   createComponent(component: Component): Observable<ResponseMessage> {
-    let x = this.httpClient.post<Component>(this.url, component).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Komponente konnte nicht angelegt werden' });
-      });
-
-    return of({ isSuccessful: true, messageText: 'Komponente created' });
+    return this.httpClient.post<ResponseMessage>(this.url, component);
   }
 
 
@@ -76,17 +65,7 @@ export class ComponentService {
    * @author Martin Wünsch
    */
   updateComponent(component: Component): Observable<ResponseMessage> {
-    let x = this.httpClient.put<Component>(this.url + '/' + component.id, component).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Komponente konnte nicht upgedated werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Komponente updated' });
+    return this.httpClient.put<ResponseMessage>(this.url + '/' + component.id, component);
   }
 
 
@@ -98,17 +77,7 @@ export class ComponentService {
    * @author Martin Wünsch
    */
   deleteComponent(component: Component): Observable<ResponseMessage> {
-    this.httpClient.delete(this.url + '/' + component.id).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Komponente konnte nicht gelöscht werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Komponente deleted' });
+    return this.httpClient.delete<ResponseMessage>(this.url + '/' + component.id);
   }
 
 }
