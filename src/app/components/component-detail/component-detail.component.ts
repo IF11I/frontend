@@ -13,6 +13,8 @@ import { Supplier } from 'src/app/model/supplier';
 import { ComponentService } from 'src/app/services/component.service';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { RoomService } from 'src/app/services/room.service';
+import { ComponentType } from 'src/app/model/component-type';
+import { ComponentTypeService } from 'src/app/services/component-type.service';
 
 /**
  * Component for handling displaying/editing/deleting a single component.
@@ -35,6 +37,9 @@ export class ComponentDetailComponent implements OnInit {
   /** The list of all available suppliers. */
   private suppliers: Supplier[] = [];
 
+  /** The list of all availabe component types. */
+  private componentTypes: ComponentType[] = [];
+
 
   constructor(
     private title: Title,
@@ -43,6 +48,7 @@ export class ComponentDetailComponent implements OnInit {
     private componentService: ComponentService,
     private roomService: RoomService,
     private supplierService: SupplierService,
+    private componentTypeService: ComponentTypeService,
     private dialog: MatDialog,
   ) { }
 
@@ -61,6 +67,9 @@ export class ComponentDetailComponent implements OnInit {
 
     // Get all available suppliers.
     this.supplierService.getSuppliers().subscribe(suppliers => this.suppliers = suppliers);
+
+    // Get all availabe component types
+    this.componentTypeService.getComponentType().subscribe(componentTypes => this.componentTypes = componentTypes);
 
     // Get the current component by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
@@ -118,6 +127,17 @@ export class ComponentDetailComponent implements OnInit {
   private deleteComponent() {
     this.componentService.deleteComponent(this.component);
     this.router.navigateByUrl('/components');
+  }
+
+
+  /**
+   * Event: Gets executed when the component type selection has been changed.
+   *
+   * @author Nils Weber
+   */
+  private componentTypeSelectionChanged() {
+    const componentType = this.componentTypes.find(type => type.id === this.component.componentTypeId);
+    this.component.attributes = componentType.attributes.map(({ id, label, value }) => ({ id, label, value }));
   }
 
 }
