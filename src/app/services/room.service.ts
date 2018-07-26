@@ -1,73 +1,83 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Room } from '../model/room';
 import { ResponseMessage } from '../model/response-message';
 
+/**
+ * Service to handle CRUD operations for rooms.
+ *
+ * @author Matrin Wünsch
+ */
 @Injectable({
   providedIn: 'root'
 })
-// The room.service handles the communication with the backend, regarding rooms.
 export class RoomService {
 
-  private url = "/api/rooms";
+  /** The URL to the corresponding REST route. */
+  private url = '/api/rooms';
+
+
   constructor(private httpClient: HttpClient) { }
 
-  // returns all the rooms from the server
+
+  /**
+   * Returns all rooms from the server.
+   *
+   * @author Matrin Wünsch
+   */
   getRooms(): Observable<Room[]> {
     return this.httpClient.get<Room[]>(this.url);
   }
 
-  // returns the room with a given Id from the server
+
+  /**
+   * Returns the room with the given id from the server.
+   *
+   * @param id The room's id.
+   *
+   * @author Martin Wünsch
+   */
   getRoomById(id: number): Observable<Room> {
-    return this.httpClient.get<Room>(this.url + "/" + id);
+    return this.httpClient.get<Room>(this.url + '/' + id);
   }
 
-  // creates a room on server 
+
+  /**
+   * Creates a new room on the server.
+   *
+   * @param room The room to create.
+   *
+   * @author Martin Wünsch
+   */
   createRoom(room: Room): Observable<ResponseMessage> {
-    var x = this.httpClient.post<Room>(this.url, room).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht angelegt werden' });
-      });
-
-    return of({ isSuccessful: true, messageText: 'Room created' });
+    return this.httpClient.post<ResponseMessage>(this.url, room);
   }
 
-  // updates room on the server
+
+  /**
+   * Updates the given room on the server.
+   *
+   * @param room The room to update.
+   *
+   * @author Martin Wünsch
+   */
   updateRoom(room: Room): Observable<ResponseMessage> {
-    var x = this.httpClient.put<Room>(this.url + "/" + room.id, room).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht upgedated werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Room updated' });
+    return this.httpClient.put<ResponseMessage>(this.url + '/' + room.id, room);
   }
 
-  // deletes a room on the server
+
+  /**
+   * Deletes the given room from the server.
+   *
+   * @param room The room to delete.
+   *
+   * @author Martin Wünsch
+   */
   deleteRoom(room: Room): Observable<ResponseMessage> {
-    this.httpClient.delete(this.url + "/" + room.id).subscribe(res => {
-      console.log(res);
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err.error);
-        console.log(err.name);
-        console.log(err.message);
-        console.log(err.status);
-        return of({ isSuccessful: false, messageText: 'Raum konnte nicht gelöscht werden' });
-      });
-    return of({ isSuccessful: true, messageText: 'Room deleted' });
+    return this.httpClient.delete<ResponseMessage>(this.url + '/' + room.id);
   }
+
 }

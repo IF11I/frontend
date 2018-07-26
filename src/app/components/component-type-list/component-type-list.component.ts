@@ -43,7 +43,7 @@ export class ComponentTypeListComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('IT-Verwaltung · Component Types');
     this.dataSource.sort = this.sort;
-    this.componentTypeService.getComponentType().subscribe(
+    this.componentTypeService.getComponentTypes().subscribe(
       types => this.dataSource.data = types,
       error => this.statusDialogService.displayError(error));
   }

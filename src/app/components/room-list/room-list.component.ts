@@ -53,8 +53,8 @@ export class RoomListComponent implements OnInit {
 
     // Get observables for all required resources.
     const rooms$ = this.roomService.getRooms();
-    const components$ = this.componentService.getComponent();
-    const componentTypes$ = this.componentTypeService.getComponentType();
+    const components$ = this.componentService.getComponents();
+    const componentTypes$ = this.componentTypeService.getComponentTypes();
 
     // Wait for all observables to finish executing.
     forkJoin([ rooms$, components$, componentTypes$ ]).subscribe(results => {

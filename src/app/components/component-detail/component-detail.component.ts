@@ -72,7 +72,7 @@ export class ComponentDetailComponent implements OnInit {
     this.supplierService.getSuppliers().subscribe(suppliers => this.suppliers = suppliers);
 
     // Get all availabe component types
-    this.componentTypeService.getComponentType().subscribe(componentTypes => this.componentTypes = componentTypes);
+    this.componentTypeService.getComponentTypes().subscribe(componentTypes => this.componentTypes = componentTypes);
 
     // Get the current component by the id that was passed in through a route parameter.
     this.route.paramMap.pipe(
@@ -154,10 +154,11 @@ export class ComponentDetailComponent implements OnInit {
    * @author Nils Weber
    */
   private handleResponseMessage(response$: Observable<ResponseMessage>) {
-    this.statusDialogService.handleResponseMessage(response$);
     response$.subscribe(response => {
+      this.statusDialogService.displayResponse(response);
       if (response.isSuccessful) { this.router.navigateByUrl('/components'); }
-    });
+    },
+    error => this.statusDialogService.displayError(error));
   }
 
 }

@@ -32,27 +32,13 @@ export class StatusDialogService {
 
 
   /**
-   * Handles an observable `ResponseMessage` and displays a dialog accordingly.
-   *
-   * @param responseMessage$ The observable `ResponseMessage` to handle.
-   *
-   * @author Nils Weber
-   */
-  public handleResponseMessage(responseMessage$: Observable<ResponseMessage>) {
-    responseMessage$.subscribe(
-      response => this.displayResponse(response),
-      error => this.displayError(error));
-  }
-
-
-  /**
    * Displays the given `ResponseMessage` in a dialog.
    *
    * @param responseMessage The `ResponseMessage` to display.
    *
    * @author Nils Weber
    */
-  private displayResponse(responseMessage: ResponseMessage) {
+  public displayResponse(responseMessage: ResponseMessage) {
     const prefix = responseMessage.isSuccessful ? this.successPrefix : this.errorPrefix;
     const config = responseMessage.isSuccessful ? this.successMessageConfig : this.errorMessageConfig;
     this.snackBar.open(prefix + responseMessage.messageText, 'OK', config);

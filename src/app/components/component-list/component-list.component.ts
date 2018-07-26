@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 import { ComponentService } from 'src/app/services/component.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -52,8 +52,8 @@ export class ComponentListComponent implements OnInit {
     this.dataSource.sort = this.sort;
 
     // Get observables for all required resources.
-    const components$ = this.componentService.getComponent();
-    const componentTypes$ = this.componentTypeService.getComponentType();
+    const components$ = this.componentService.getComponents();
+    const componentTypes$ = this.componentTypeService.getComponentTypes();
     const rooms$ = this.roomService.getRooms();
 
     // Wait for all observables to finish executing.
