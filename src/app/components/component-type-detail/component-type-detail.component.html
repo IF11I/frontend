@@ -1,0 +1,25 @@
+<form #form>
+  <div class="fields">
+    <mat-form-field>
+      <input matInput placeholder="Komponentenart Name" [(ngModel)]="componentType.name" name="componentTypeName" required />
+    </mat-form-field>
+
+    <div class="attributes">
+      <h3 class="mat-title">Attribute</h3>
+      <mat-selection-list #attributesList name="componentTypeAttributes">
+        <mat-list-option *ngFor="let attribute of attributes" [value]="attribute" [selected]="isAttributeSelected(attribute)">
+          {{ attribute.label }}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+</form>
+
+<div class="actions" *ngIf="componentType.id">
+  <button mat-button color="warn" class="delete-button" (click)="confirmComponentTypeDeletion()">
+    <mat-icon>delete</mat-icon>
+    Komponentenart löschen
+  </button>
+</div>
+
+<button mat-fab matTooltip="Komponentenart speichern" matTooltipPosition="left" class="save-button" (click)="saveComponentType()"><mat-icon>save</mat-icon></button>

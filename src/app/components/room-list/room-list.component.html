@@ -1,0 +1,36 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort>
+  <!-- room number column -->
+  <ng-container matColumnDef="roomNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Raum-Nr.</th>
+    <td mat-cell *matCellDef="let vm">{{ vm.roomNumber }}</td>
+  </ng-container>
+
+  <!-- room name column -->
+  <ng-container matColumnDef="roomName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Raum-Name</th>
+    <td mat-cell *matCellDef="let vm">{{ vm.roomName }}</td>
+  </ng-container>
+
+  <!-- room name column -->
+  <ng-container matColumnDef="componentTypeList">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Komponenten</th>
+    <td mat-cell *matCellDef="let vm">{{ vm.componentTypeList }}</td>
+  </ng-container>
+
+  <!-- actions column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let vm">
+      <a mat-icon-button matTooltip="Raum bearbeiten" matTooltipPosition="left" [routerLink]="['/room', vm.roomId]"><mat-icon>edit</mat-icon></a>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let rowData; columns : columnsToDisplay"></tr>
+</table>
+
+<button mat-fab matTooltip="Neuen Raum hinzufügen" matTooltipPosition="left" class="add-button" routerLink="/room/new"><mat-icon>add</mat-icon></button>

@@ -1,0 +1,16 @@
+<form #form>
+  <div class="fields">
+    <mat-form-field>
+      <input matInput placeholder="Attribut Name" [(ngModel)]="attribute.label" name="attributeLabel" required />
+    </mat-form-field>
+  </div>
+</form>
+
+<div class="actions" *ngIf="attribute.id">
+  <button mat-button color="warn" class="delete-button" (click)="confirmAttributeDeletion()">
+    <mat-icon>delete</mat-icon>
+    Attribut löschen
+  </button>
+</div>
+
+<button mat-fab matTooltip="Attribut speichern" matTooltipPosition="left" class="save-button" (click)="saveAttribute()"><mat-icon>save</mat-icon></button>

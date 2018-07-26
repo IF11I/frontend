@@ -1,0 +1,86 @@
+<form #form>
+  <div class="fields">
+    <h3 class="mat-title">Allgemeine Informationen</h3>
+
+    <!-- Component Name -->
+    <mat-form-field>
+      <input matInput placeholder="Komponenten-Name" [(ngModel)]="component.name" name="componentName" required />
+    </mat-form-field>
+
+    <!-- Component Type Selection -->
+    <mat-form-field>
+      <mat-select placeholder="Komponentenart" [disabled]="component.id" (selectionChange)="componentTypeSelectionChanged()" [(ngModel)]="component.componentTypeId" name="componentTypeId" required>
+        <mat-option *ngFor="let componentType of componentTypes" [value]="componentType.id">
+          {{ componentType.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Room Selection -->
+    <mat-form-field>
+      <mat-select placeholder="Raum" [(ngModel)]="component.roomId" name="componentRoomId" required>
+        <mat-option *ngFor="let room of rooms" [value]="room.id">
+          {{ room.number }} - {{ room.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Manufacturer -->
+    <mat-form-field>
+      <input matInput placeholder="Hersteller" [(ngModel)]="component.manufacturer" name="componentManufacturer" required />
+    </mat-form-field>
+
+    <!-- Notes -->
+    <mat-form-field>
+      <textarea matInput placeholder="Notizen" [(ngModel)]="component.notes" name="componentNotes"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="fields">
+    <h3 class="mat-title">Zulieferer-Informationen</h3>
+    
+    <!-- Supplier Selection -->
+    <mat-form-field>
+      <mat-select placeholder="Zulieferer" [(ngModel)]="component.supplierId" name="componentSupplierId" required>
+        <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+          {{ supplier.name }}, {{ supplier.city }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Date Purchased -->
+    <mat-form-field>
+      <input matInput [(ngModel)]="component.datePurchased" [matDatepicker]="pickerPurchased" placeholder="Kaufdatum" name="purchaseDate" required />
+      <mat-datepicker-toggle matSuffix [for]="pickerPurchased"></mat-datepicker-toggle>
+      <mat-datepicker #pickerPurchased></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Date Warranty End -->
+    <mat-form-field>
+      <input matInput [(ngModel)]="component.dateWarrantyEnd" [matDatepicker]="pickerWarrantyEnd" placeholder="Gewährleistungsende" name="warrantyEndDate" required />
+      <mat-datepicker-toggle matSuffix [for]="pickerWarrantyEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerWarrantyEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+</form>
+
+<div class="fields">
+  <h3 class="mat-title">Komponentenart-Attribute</h3>
+
+  <mat-form-field *ngFor="let attribute of component.attributes">
+    <input matInput [(ngModel)]="attribute.value" [placeholder]="attribute.label" />
+  </mat-form-field>
+
+  <p *ngIf="!component.componentTypeId" class="mat-typography">
+    Bitte wählen Sie zuerst eine Komponentenart aus, um die zugehörigen Attribute auszufüllen.
+  </p>
+</div>
+
+<div class="actions" *ngIf="component.id">
+  <button mat-button color="warn" class="delete-button" (click)="confirmComponentDeletion()">
+    <mat-icon>delete</mat-icon>
+    Komponente löschen
+  </button>
+</div>
+
+<button mat-fab matTooltip="Komponente speichern" matTooltipPosition="left" class="save-button" (click)="saveComponent()"><mat-icon>save</mat-icon></button>

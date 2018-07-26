@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Bestätigung erforderlich</h2>
+<mat-dialog-content class="mat-typography">
+  Sind Sie sich sicher, dass Sie die ausgewählte Entität löschen möchten?<br />
+  Diese Aktion kann nicht rückgängig gemacht werden.
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close tabindex="-1">Abbrechen</button>
+  <button mat-flat-button color="warn" tabindex="-1" [mat-dialog-close]="true">Löschen</button>
+</mat-dialog-actions>
