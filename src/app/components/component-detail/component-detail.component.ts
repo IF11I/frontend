@@ -127,6 +127,22 @@ export class ComponentDetailComponent implements OnInit {
 
 
   /**
+   * Creates a duplicate of the current component.
+   *
+   * @author Nils Weber
+   */
+  saveDuplicate() {
+    // Don't procede if form is invalid.
+    if (!this.form.nativeElement.checkValidity()) {
+      this.snackBar.open('Bitte füllen Sie alle Felder aus', 'OK', { duration: 5000 });
+      return;
+    }
+
+    this.handleResponseMessage(this.componentService.createComponent(this.component));
+  }
+
+
+  /**
    * Ask for the user's confirmation for deleting the current component.
    *
    * @author Nils Weber
